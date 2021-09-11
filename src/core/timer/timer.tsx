@@ -5,7 +5,9 @@ import { AppState } from '../../redux/reducers/rootReducer';
 import { TimerActions } from '../../redux/actions/timerActions';
 import { CountActions } from '../../redux/actions/countActions';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-import styles from './timer.styles';
+import styles from './styles';
+import stopImg from '../../../assets/stopbutton.png';
+import startImg from '../../../assets/startbutton.png';
 
 interface Props {
   title: string;
@@ -50,13 +52,13 @@ const Timer: React.FC<Props> = ({ title }) => {
           {!timerIsOn ? (
             <TouchableOpacity style={styles.btn} onPress={handleSetTimer}>
               <View>
-                <Image source={require('@assets/startbutton.png')} style={styles.img} />
+                <Image source={stopImg} style={styles.img} />
               </View>
             </TouchableOpacity>
           ) : (
             <TouchableOpacity style={styles.btn} onPress={handleSetTimer}>
               <View>
-                <Image source={require('@assets/stopbutton.png')} style={styles.img} />
+                <Image source={startImg} style={styles.img} />
               </View>
             </TouchableOpacity>
           )}

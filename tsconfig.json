@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "react-native",
+    "lib": ["dom", "esnext"],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "strict": true,
     "baseUrl": ".",
-    "rootDir": ".",
-    "paths": {
-      "@screens": ["src/screens"],
-      "@core": ["src/core"],
-      "@utils": ["src/utils"],
-      "@contexts/*": ["src/contexts/*"],
-      "@config/*": ["src/config/*"],
-      "@assets/*": ["src/assets/*"]
-    }
+    "rootDir": "."
   },
-  "extends": "expo/tsconfig.base",
-  "include": ["./**/*", "./*", ".eslintrc.js"]
+  "extends": "expo/tsconfig.base"
 }

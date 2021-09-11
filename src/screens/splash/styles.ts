@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
   buttontext: {
     color: '#FFF',
   },
+  img: { height: 150, width: 150 },
 });
 
 export default styles;

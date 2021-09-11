@@ -7,7 +7,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { TabsNavStackParamList, Routes } from '../../types';
 
-import { MyApptsScreen, BsmScreen } from '@screens';
+import { MyApptsScreen } from '../screens';
+import { BsmScreen } from '../screens';
 import MyDayStackScreen from './my-day-nav';
 import MyCasesStackNav from './my-cases-nav';
 //import MyCasesStackScreen from "./my-cases-nav";

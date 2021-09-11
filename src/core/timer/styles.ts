@@ -18,7 +18,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  img: {},
+  img: {
+    justifyContent: 'center',
+  },
   genericText: {
     color: 'red',
     fontSize: 20,

@@ -2,7 +2,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 
 import { MyCasesStackParamList, Routes } from '../../types';
-import { MyCasesScreen, MyCasesModal } from '@screens';
+import MyCasesScreen from '../screens/my-cases/my-cases-screen';
+import MyCasesModal from '../screens/my-cases/my-cases-modal';
 
 const ModalStack = createNativeStackNavigator<MyCasesStackParamList>();
 
