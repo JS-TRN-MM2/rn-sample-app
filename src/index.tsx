@@ -1,23 +1,29 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import { Provider as PaperProvider } from 'react-native-paper';
+import store from './redux/store/store';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { StyleSheet, Text, View } from 'react-native';
+import FirstNav from './navigation/first-nav';
+import MainNav from './navigation/main-nav';
 
-export default function App() {
+import { AppBootstrapComponent } from './core';
+
+const App = (): React.ReactElement => {
+  const showSplash = true;
+  //const isAuth = true;
   return (
-    <NavigationContainer>
-      <View style={styles.container}>
-        <Text>Open up App.js tMissy!</Text>
-      </View>
-    </NavigationContainer>
+    <Provider store={store}>
+      <AppBootstrapComponent>
+        <PaperProvider>
+          <NavigationContainer>
+            {/*{showSplash ? <SplashScreen /> : isAuth ? <MainNav /> : <AuthScreen />}*/}
+            {showSplash ? <FirstNav /> : <MainNav />}
+          </NavigationContainer>
+        </PaperProvider>
+      </AppBootstrapComponent>
+    </Provider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;

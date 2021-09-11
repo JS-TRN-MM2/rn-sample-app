@@ -1,5 +1,16 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": ".",
+    "paths": {
+      "@screens": ["src/screens"],
+      "@core": ["src/core"],
+      "@utils": ["src/utils"],
+      "@contexts/*": ["src/contexts/*"],
+      "@config/*": ["src/config/*"],
+      "@assets/*": ["src/assets/*"]
+    }
+  },
   "extends": "expo/tsconfig.base",
   "include": ["./**/*", "./*", ".eslintrc.js"]
 }
