@@ -37,6 +37,21 @@ module.exports = {
     'react/display-name': 'off',
     'react/prop-types': 'off',
   },
+  overrides: [
+    {
+      files: [
+        '**/*.test.js',
+        '**/*.test.jsx',
+        '**/*.test.tsx',
+        '**/*.spec.js',
+        '**/*.spec.jsx',
+        '**/*.spec.tsx',
+      ],
+      env: {
+        jest: true,
+      },
+    },
+  ],
   settings: {
     react: {
       version: 'detect',

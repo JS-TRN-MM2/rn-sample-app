@@ -1,9 +1,5 @@
 {
   "compilerOptions": {},
   "extends": "expo/tsconfig.base",
-  "include": [
-    "./**/*",
-    "./*",
-    ".eslintrc.js"
-  ]
+  "include": ["./**/*", "./*", ".eslintrc.js"]
 }

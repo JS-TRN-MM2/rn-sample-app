@@ -1,1 +1,8 @@
 *.png
+node_modules/
+babel.config.js
+metro.config.js
+.github
+build
+ios
+android
