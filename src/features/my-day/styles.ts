@@ -54,6 +54,13 @@ const styles = StyleSheet.create({
     fontSize: 36,
     color: colors.primaryOrange,
   },
+  genericText: {
+    color: 'red',
+    fontSize: 20,
+    borderWidth: 2,
+    borderColor: 'orange',
+    padding: 10,
+  },
 });
 
 export default styles;

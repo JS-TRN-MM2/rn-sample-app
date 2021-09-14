@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../constants';
+import { colors } from '../../../constants';
 
 const styles = StyleSheet.create({
   screen: {
@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
   genericText: {
     color: 'red',
     fontSize: 20,
+    borderWidth: 2,
+    borderColor: 'orange',
+    padding: 10,
   },
 });
 

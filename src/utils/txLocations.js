@@ -1,12 +1,17 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as SQLite from 'expo-sqlite';
 
-const db = SQLite.openDatabase('locations.db');
-
-export const init = () => {
+export const initLocationSvc = (db) => {
+  console.log('made it to initLocationSvc');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
+      tx.executeSql('DROP TABLE IF EXISTS MTBL_LOCATIONS', []);
       tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS locations (id INTEGER PRIMARY KEY NOT NULL, address TEXT NOT NULL, lat REAL NOT NULL, lng REAL NOT NULL);',
+        "CREATE TABLE IF NOT EXISTS MTBL_LOCATIONS (id INTEGER PRIMARY KEY NOT NULL, timestamp time default (strftime('%s', 'now')), lat REAL, lng REAL, accuracy REAL, altitude REAL, speed REAL, heading REAL);",
         [],
         () => {
           resolve();
@@ -20,12 +25,14 @@ export const init = () => {
   return promise;
 };
 
-export const insertLocation = (address, lat, lng) => {
+export const insertLocation = (timestamp, lat, lng, accuracy, altitude, speed, heading) => {
+  console.log('made it to insertLocation');
+  const db = SQLite.openDatabase('rn-sample.db');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'INSERT INTO locations (address, lat, lng) VALUES (?, ?, ?, ?);',
-        [address, lat, lng],
+        'INSERT INTO MTBL_LOCATIONS (timestamp, lat, lng, accuracy, altitude, speed, heading) VALUES (?, ?, ?,?,?,?,?);',
+        [timestamp, lat, lng, accuracy, altitude, speed, heading],
         (_, result) => {
           resolve(result);
         },
@@ -38,7 +45,9 @@ export const insertLocation = (address, lat, lng) => {
   return promise;
 };
 
-export const fetchLocations = () => {
+export const fetchLocations = () =>
+{
+  const db = SQLite.openDatabase('rn-sample.db');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(

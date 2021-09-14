@@ -6,6 +6,7 @@ import {
 } from '@expo-google-fonts/delius-unicase';
 import AppLoading from 'expo-app-loading';
 
+
 type AppBootstrapProps = {
   children: ReactNode;
 };

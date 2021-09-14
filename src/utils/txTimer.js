@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as SQLite from 'expo-sqlite';
 
-const db = SQLite.openDatabase('mtbl_myday.db');
+export const initTimerSvc = (db) => {
+  console.log('made it to initTimerSvc');
 
-export const init = () => {
-  console.log('made it to init');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql('DROP TABLE IF EXISTS MTBL_MYDAY', []);
@@ -17,6 +20,8 @@ export const init = () => {
 };
 
 export const insertTime = (taskstate, userId) => {
+  console.log('made it to insertTime');
+  const db = SQLite.openDatabase('rn-sample.db');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
@@ -33,7 +38,9 @@ export const insertTime = (taskstate, userId) => {
   });
   return promise;
 };
-export const selectAllTimes = () => {
+export const selectAllTimes = () =>
+{
+  const db = SQLite.openDatabase('rn-sample.db');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(

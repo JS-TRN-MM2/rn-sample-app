@@ -3,8 +3,8 @@ import type { ParamListBase } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { MyDayStackParamList, Routes } from '../../types';
-import MyDayScreen from '../screens/my-day/my-day-screen';
-import MyDayInfoScreen from '../screens/my-day/my-day-info-screen';
+import MyDayScreen from '../features/my-day/my-day-screen';
+import MyDayInfoScreen from '../features/my-day/my-day-info-screen';
 
 const MyDayStack = createNativeStackNavigator<MyDayStackParamList>();
 

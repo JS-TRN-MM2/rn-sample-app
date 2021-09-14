@@ -2,7 +2,7 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { MainNavStackParamList, Routes } from '../../types';
-import { SettingsScreen } from '../screens';
+import { SettingsScreen } from '../features';
 import TabsNav from './tabs-nav';
 
 const DrawerNavStack = createDrawerNavigator<MainNavStackParamList>();

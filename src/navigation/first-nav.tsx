@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FirstNavStackParamList, Routes } from '../../types';
-import { SplashScreen } from '../screens';
+import { SplashScreen } from '../features';
 import MainNav from './main-nav';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
