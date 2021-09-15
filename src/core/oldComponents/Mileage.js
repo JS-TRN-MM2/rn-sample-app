@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-import Colors from '../constants/Colors';
-
 const Mileage = (props) => {
   return (
     <View style={styles.screen}>
@@ -43,14 +41,14 @@ const styles = StyleSheet.create({
     // borderWidth: 2
   },
   mileageButtonContainer: {
-    backgroundColor: Colors.primaryButton,
+    //backgroundColor: Colors.primaryButton,
     paddingTop: 10,
     paddingRight: 40,
     paddingBottom: 10,
     paddingLeft: 40,
   },
   mileageButton: {
-    color: Colors.primaryLight,
+    //color: Colors.primaryLight,
     fontWeight: '700',
   },
   mileageTextContainer1: {

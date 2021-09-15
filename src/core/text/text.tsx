@@ -2,7 +2,7 @@ import React from 'react';
 import { Text as RNText, TextStyle } from 'react-native';
 import {
   consts, // size of text
-  colors, // color if text
+  //, // color if text
 } from '../../constants';
 
 export interface TextProps {
@@ -26,7 +26,7 @@ const Text: React.FC<TextProps> = ({ size = 'M', children, style, bold, color, .
       ...style,
       fontSize: checkSize(size),
       fontWeight: bold ? '700' : '400',
-      color: color || colors.primaryDark,
+      //color: color || colors.primaryDark,
     }}
   >
     {children}

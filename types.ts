@@ -12,10 +12,15 @@ export enum Routes {
   SettingsScreen = 'SettingsScreen',
   RootNav = 'RootNav',
   TabsNav = 'TabsNav',
-  MainNav = 'MainNav',
-  TimeLocNav = 'TimeLocStackNav',
-  MyClosetNav = 'MyClosetStackNav',
+  MainNavIos = 'MainNavIos',
+  MoreStackNav = 'MoreStackNav',
+  MyClosetStackNav = 'MyClosetStackNav',
   ModalNav = 'ModalStackScreen',
+  More = 'More',
+  AddItem = 'AddItem',
+  Donation = 'Donation',
+  Share = 'Share',
+  MyCloset = 'MyCloset',
 }
 
 export type MyClosetStackParamList = {
@@ -24,28 +29,38 @@ export type MyClosetStackParamList = {
 };
 
 export type RootNavParamList = {
-  [Routes.MainNav]: NavigatorScreenParams<MainNavStackParamList>;
-  [Routes.MyClosetNav]: NavigatorScreenParams<MyClosetStackParamList>;
+  [Routes.MainNavIos]: NavigatorScreenParams<MainNavIosStackParamList>;
+  [Routes.MyClosetStackNav]: NavigatorScreenParams<MyClosetStackParamList>;
 };
 
 export type FirstNavStackParamList = {
   [Routes.SplashScreen]: undefined;
-  [Routes.MainNav]: undefined;
+  [Routes.MainNavIos]: undefined;
 };
 
-export type MainNavStackParamList = {
+export type MainNavIosStackParamList = {
   [Routes.TabsNav]: undefined;
   [Routes.SettingsScreen]: undefined;
 };
 
-export type TabsNavStackParamList = {
-  [Routes.TimeLocNav]: undefined;
-  [Routes.MyClosetNav]: undefined;
-  [Routes.ShareClosetScreen]: undefined;
-  [Routes.DonationsScreen]: undefined;
+export type MainNavAndroidStackParamList = {
+  [Routes.MyClosetStackNav]: undefined;
+  [Routes.MoreStackNav]: undefined;
+  [Routes.Share]: undefined;
+  [Routes.Donation]: undefined;
+  [Routes.AddItem]: undefined;
 };
 
-export type TimeLocStackParamList = {
+export type TabsNavStackParamList = {
+  [Routes.MyClosetStackNav]: undefined;
+  [Routes.MoreStackNav]: undefined;
+  [Routes.Share]: undefined;
+  [Routes.Donation]: undefined;
+  [Routes.AddItem]: undefined;
+};
+
+export type MoreStackParamList = {
+  [Routes.More]: undefined;
   [Routes.TimeLocScreen]: undefined;
   [Routes.TimeLocInfoScreen]: undefined;
 };

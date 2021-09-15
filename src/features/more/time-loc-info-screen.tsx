@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button } from 'react-native-elements';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import TimeLocinfo from './time-info';
 
-import { TimeLocStackParamList, Routes } from 'types';
+import { MoreStackParamList, Routes } from 'types';
 
 type TimeLocInfoScreenProp = {
-  navigation: NativeStackNavigationProp<TimeLocStackParamList, Routes.TimeLocInfoScreen>;
+  navigation: NativeStackNavigationProp<MoreStackParamList, Routes.TimeLocInfoScreen>;
 };
 
 const TimeLocInfoScreen: React.FC<TimeLocInfoScreenProp> = ({ navigation }) => {

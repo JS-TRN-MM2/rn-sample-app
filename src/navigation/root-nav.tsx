@@ -8,7 +8,7 @@ import {
 
 import { RootNavParamList, Routes } from '../../types';
 
-import MainNav from './main-nav';
+import MainNavIos from './main-nav.ios';
 import MyClosetStackNav from './my-closet-nav';
 /*
 const modalScreenOptions: NativeStackNavigationOptions = {
@@ -54,8 +54,8 @@ const RootNav = (): React.ReactElement => {
       }}
       */
     >
-      <Screen name={Routes.MainNav} component={MainNav} />
-      <Screen name={Routes.MyClosetNav} component={MyClosetStackNav} />
+      <Screen name={Routes.MainNavIos} component={MainNavIos} />
+      <Screen name={Routes.MyClosetStackNav} component={MyClosetStackNav} />
     </Navigator>
   );
 };

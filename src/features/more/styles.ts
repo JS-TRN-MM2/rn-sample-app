@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../constants';
+//import { colors } from '../../constants';
 
 const styles = StyleSheet.create({
   screen: {
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   date: {
     fontFamily: 'open-sans',
     fontSize: 24,
-    color: colors.primaryGray,
+    //color: colors.primaryGray,
   },
   timerContainer: {
     alignItems: 'center',
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   time: {
     fontFamily: 'open-sans',
     fontSize: 24,
-    color: colors.primaryDark,
+    //color: colors.primaryDark,
   },
   imageContainer: {
     width: '80%',
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   tempTime: {
     fontFamily: 'open-sans',
     fontSize: 18,
-    color: colors.primaryDark,
+    //color: colors.primaryDark,
     borderWidth: 2,
     padding: 10,
   },
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   infoButtonText: {
     fontSize: 36,
-    color: colors.primaryOrange,
+    //color: colors.primaryOrange,
   },
   genericText: {
     color: 'red',

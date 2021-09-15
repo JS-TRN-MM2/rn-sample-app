@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-import locationReducer from '../features/time-loc/locationSlice';
-import timerReducer from '../features/time-loc/timer/timerSlice';
+import locationReducer from '../features/more/locationSlice';
+import timerReducer from '../features/more/timer/timerSlice';
 
 const rootReducer = combineReducers({
   timer: timerReducer,

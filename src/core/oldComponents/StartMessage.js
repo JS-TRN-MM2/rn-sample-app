@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 
-import Colors from '../constants/Colors';
+//import Colors from '../constants/Colors';
 
 const StartMessage = (props) => {
   return (
@@ -30,10 +30,10 @@ const styles = StyleSheet.create({
   startMessage: {
     alignItems: 'center',
     justifyContent: 'center',
-    color: Colors.primaryOrange,
+    //color: Colors.primaryOrange,
   },
   okButtonContainer: {
-    backgroundColor: Colors.primaryBlue,
+    //backgroundColor: Colors.primaryBlue,
     margin: 10,
   },
   okButton: {

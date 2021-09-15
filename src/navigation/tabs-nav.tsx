@@ -1,74 +1,107 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import * as React from 'react';
+import { View, Text } from 'react-native';
+import { Platform } from 'react-native';
+import { Icon, withBadge } from 'react-native-elements';
+import { Ionicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
-import { Ionicons } from '@expo/vector-icons';
+import { Share, AddItem, Donation } from '../features';
+
+import MoreStackNav from './more-nav';
+import MyClosetStackNav from './my-closet-nav';
 
 import { TabsNavStackParamList, Routes } from '../../types';
 
-import { ShareClosetScreen } from '../features';
-import { DonationsScreen } from '../features';
-import TimeLocStackScreen from './time-loc-nav';
-import MyClosetStackNav from './my-closet-nav';
-//import MyClosetStackScreen from "./my-closet-nav";
-
-type IoniconName = React.ComponentProps<typeof Ionicons>['name'];
-
 const TabsNavStack = createMaterialBottomTabNavigator<TabsNavStackParamList>();
 
-const TabsNav = (): React.ReactElement => {
+interface TabContainerProps {
+  label?: string;
+  focused?: boolean;
+}
+
+const TabContainer: React.FC<TabContainerProps> = ({ children, label, focused }) => (
+  <>
+    {focused ? (
+      <View>
+        {children}
+        <Text>{label}</Text>
+      </View>
+    ) : (
+      <View>
+        {children}
+        <Text>{label}</Text>
+      </View>
+    )}
+  </>
+);
+
+const tabBarOptions = {
+  labelStyle: {
+    fontSize: 50,
+  },
+  tabStyle: {
+    width: 100,
+  },
+  style: {
+    paddingTop: 50,
+    backgroundColor: 'red',
+  },
+};
+
+const TabsNav = () => {
   const { Navigator, Screen } = TabsNavStack;
 
   return (
     <Navigator
-      initialRouteName={Routes.DonationsScreen}
-      barStyle={{ backgroundColor: 'black' }}
-      shifting={false}
+      initialRouteName="MyCloset"
+      tabBarOptions={tabBarOptions}
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color }) => {
-          let iconName: IoniconName = 'time';
+        tabBarIcon: ({ focused }) => {
+          const BadgedIcon = withBadge(1)(Ionicons);
+          let label, iconName: string;
 
-          if (route.name === Routes.TimeLocNav) {
-            iconName = focused ? 'time' : 'time-outline';
-          } else if (route.name === Routes.MyClosetNav) {
-            iconName = focused ? 'list-circle' : 'list-circle-outline';
-          } else if (route.name === Routes.ShareClosetScreen) {
-            iconName = focused ? 'calendar' : 'calendar-outline';
-          } else if (route.name === Routes.DonationsScreen) {
-            iconName = focused ? 'chatbox' : 'chatbox-outline';
+          switch (route.name) {
+            case 'MyClosetStackNav':
+              iconName = `${Platform.OS === 'android' ? 'md-shirt' : 'ios-shirt-outline'}`;
+              break;
+            case 'Share':
+              iconName = `${Platform.OS === 'android' ? 'heart-circle' : 'heart-circle-outline'}`;
+              break;
+            case 'AddItem':
+              iconName = 'add';
+              break;
+            case 'Donation':
+              iconName = `${Platform.OS === 'android' ? 'ios-gift-sharp' : 'ios-gift-outline'}`;
+              break;
+            case 'MoreStackNav':
+              iconName = 'ellipsis-horizontal';
+              break;
+            default:
+              return null;
           }
-
-          // You can return any component that you like here!
-          return <Ionicons name={iconName} size={24} color={color} />;
+          return (
+            <TabContainer label={label} focused={focused}>
+              <BadgedIcon
+                type="MaterialCommunityIcons"
+                name={iconName}
+                size={30}
+                color={focused ? '#31AAB7' : '#ACBAC3'}
+              />
+            </TabContainer>
+          );
         },
       })}
     >
-      <Screen
-        name={Routes.TimeLocNav}
-        component={TimeLocStackScreen}
-        options={{
-          tabBarLabel: 'TimeLoc',
-        }}
-      />
-      <Screen
-        name={Routes.MyClosetNav}
-        component={MyClosetStackNav}
-        options={{ tabBarLabel: 'MyCloset' }}
-      />
-      <Screen
-        name={Routes.ShareClosetScreen}
-        component={ShareClosetScreen}
-        options={{
-          title: 'Share Closet',
-          tabBarLabel: 'ShareCloset',
-        }}
-      />
-      <Screen
-        name={Routes.DonationsScreen}
-        component={DonationsScreen}
-        options={{ tabBarLabel: 'Donations' }}
-      />
+      <Screen name={Routes.MyClosetStackNav} component={MyClosetStackNav} />
+      <Screen name={Routes.Share} component={Share} />
+      <Screen name={Routes.AddItem} component={AddItem} />
+
+      <Screen name={Routes.Donation} component={Donation} />
+      <Screen name={Routes.MoreStackNav} component={MoreStackNav} />
     </Navigator>
   );
 };

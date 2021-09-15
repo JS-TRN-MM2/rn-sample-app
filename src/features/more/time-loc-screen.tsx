@@ -3,16 +3,16 @@
 import React from 'react';
 
 import { View, Text } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button } from 'react-native-elements';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { TimeLocStackParamList, Routes } from '../../../types';
+import { MoreStackParamList, Routes } from '../../../types';
 import TimerComponent from './timer/timer';
 
 import styles from './styles';
 
 type TimeLocScreenProp = {
-  navigation: NativeStackNavigationProp<TimeLocStackParamList, Routes.TimeLocScreen>;
+  navigation: NativeStackNavigationProp<MoreStackParamList, Routes.TimeLocScreen>;
 };
 
 const TimeLocScreen: React.FC<TimeLocScreenProp> = ({ navigation }) => {

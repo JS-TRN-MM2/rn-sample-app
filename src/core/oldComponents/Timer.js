@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { formatTime } from '../utils/timer-utils';
 
-import Colors from '../constants/Colors';
+//import Colors from '../constants/Colors';
 
 const Timer = (props) => {
   return (
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   time: {
     fontFamily: 'open-sans',
     fontSize: 24,
-    color: Colors.primaryDark,
+    //color: Colors.primaryDark,
   },
   btn: {
     justifyContent: 'center',

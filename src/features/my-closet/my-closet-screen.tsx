@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, StyleSheet } from 'react-native';
 import { Button as CustomButton } from '../../core';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { MyClosetStackParamList, Routes } from '../../../types';
-import styles from './styles';
 
 import closetItems from './my-closet-items';
 
@@ -16,7 +15,7 @@ const MyClosetScreen: React.FC<MyClosetScreenProp> = ({ navigation }) => {
   const screen = Dimensions.get('window');
 
   return (
-    <View style={styles.screen}>
+    <View style={styles.container}>
       <View
         style={{
           width: screen.width,
@@ -56,5 +55,13 @@ const MyClosetScreen: React.FC<MyClosetScreenProp> = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+});
 
 export default MyClosetScreen;

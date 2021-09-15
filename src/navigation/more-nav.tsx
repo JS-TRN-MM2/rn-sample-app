@@ -3,13 +3,14 @@ import React from 'react';
 import type { ParamListBase } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { TimeLocStackParamList, Routes } from '../../types';
-import TimeLocScreen from '../features/time-loc/time-loc-screen';
-import TimeLocInfoScreen from '../features/time-loc/time-loc-info-screen';
+import { MoreStackParamList, Routes } from '../../types';
+import More from '../features/more';
+import TimeLocScreen from '../features/more/time-loc-screen';
+import TimeLocInfoScreen from '../features/more/time-loc-info-screen';
 
-const TimeLocStack = createNativeStackNavigator<TimeLocStackParamList>();
+const TimeLocStack = createNativeStackNavigator<MoreStackParamList>();
 
-const TimeLocStackNav = ({
+const MoreStackNav = ({
   navigation,
 }: NativeStackScreenProps<ParamListBase>): React.ReactElement => {
   React.useLayoutEffect(() => {
@@ -21,10 +22,11 @@ const TimeLocStackNav = ({
   const { Navigator, Screen } = TimeLocStack;
   return (
     <Navigator>
+      <Screen name={Routes.More} component={More} />
       <Screen name={Routes.TimeLocScreen} component={TimeLocScreen} />
       <Screen name={Routes.TimeLocInfoScreen} component={TimeLocInfoScreen} />
     </Navigator>
   );
 };
 
-export default TimeLocStackNav;
+export default MoreStackNav;

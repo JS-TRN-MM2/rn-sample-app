@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../../constants';
+//import { colors } from '../../../constants';
 
 const styles = StyleSheet.create({
   screen: {
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   time: {
     fontFamily: 'DeliusUnicase_400Regular',
     fontSize: 24,
-    color: colors.primaryDark,
+    //color: colors.primaryDark,
   },
   btn: {
     justifyContent: 'center',

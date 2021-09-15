@@ -1,9 +1,7 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MainNavStackParamList, Routes } from '../../../types';
-
-import styles from './styles';
 
 type settingsScreenProps = {
   navigation: NativeStackNavigationProp<MainNavStackParamList, Routes.SettingsScreen>;
@@ -17,5 +15,13 @@ const SettingsScreen: React.FC<settingsScreenProps> = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default SettingsScreen;
