@@ -1,31 +1,31 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
 
 export enum Routes {
-  MyDayScreen = 'MyDayScreen',
-  MyDayInfoScreen = 'MyDayInfoScreen',
-  MyCasesScreen = 'MyCasesScreen',
-  MyCasesModal = 'MyCasesModal',
-  MyApptsScreen = 'MyApptsScreen',
-  BsmScreen = 'BsmScreen',
+  TimeLocScreen = 'TimeLocScreen',
+  TimeLocInfoScreen = 'TimeLocInfoScreen',
+  MyClosetScreen = 'MyClosetScreen',
+  MyClosetModal = 'MyClosetModal',
+  ShareClosetScreen = 'ShareClosetScreen',
+  DonationsScreen = 'DonationsScreen',
   SplashScreen = 'SplashScreen',
   AuthScreen = 'AuthScreen',
   SettingsScreen = 'SettingsScreen',
   RootNav = 'RootNav',
   TabsNav = 'TabsNav',
   MainNav = 'MainNav',
-  MyDayNav = 'MyDayStackNav',
-  MyCasesNav = 'MyCasesStackNav',
+  TimeLocNav = 'TimeLocStackNav',
+  MyClosetNav = 'MyClosetStackNav',
   ModalNav = 'ModalStackScreen',
 }
 
-export type MyCasesStackParamList = {
-  [Routes.MyCasesScreen]: undefined;
-  [Routes.MyCasesModal]: { step: string; desc: string };
+export type MyClosetStackParamList = {
+  [Routes.MyClosetScreen]: undefined;
+  [Routes.MyClosetModal]: { step: string; desc: string };
 };
 
 export type RootNavParamList = {
   [Routes.MainNav]: NavigatorScreenParams<MainNavStackParamList>;
-  [Routes.MyCasesNav]: NavigatorScreenParams<MyCasesStackParamList>;
+  [Routes.MyClosetNav]: NavigatorScreenParams<MyClosetStackParamList>;
 };
 
 export type FirstNavStackParamList = {
@@ -39,13 +39,13 @@ export type MainNavStackParamList = {
 };
 
 export type TabsNavStackParamList = {
-  [Routes.MyDayNav]: undefined;
-  [Routes.MyCasesNav]: undefined;
-  [Routes.MyApptsScreen]: undefined;
-  [Routes.BsmScreen]: undefined;
+  [Routes.TimeLocNav]: undefined;
+  [Routes.MyClosetNav]: undefined;
+  [Routes.ShareClosetScreen]: undefined;
+  [Routes.DonationsScreen]: undefined;
 };
 
-export type MyDayStackParamList = {
-  [Routes.MyDayScreen]: undefined;
-  [Routes.MyDayInfoScreen]: undefined;
+export type TimeLocStackParamList = {
+  [Routes.TimeLocScreen]: undefined;
+  [Routes.TimeLocInfoScreen]: undefined;
 };

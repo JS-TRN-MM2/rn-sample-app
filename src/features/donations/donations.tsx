@@ -4,15 +4,15 @@ import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bott
 import { TabsNavStackParamList, Routes } from '../../../types';
 
 type Props = {
-  navigation: MaterialBottomTabNavigationProp<TabsNavStackParamList, Routes.BsmScreen>;
+  navigation: MaterialBottomTabNavigationProp<TabsNavStackParamList, Routes.DonationsScreen>;
 };
 
-const BsmScreen: React.FC<Props> = () => {
+const DonationsScreen: React.FC<Props> = () => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>BSM Screen</Text>
+      <Text>Donations Screen</Text>
     </View>
   );
 };
 
-export default BsmScreen;
+export default DonationsScreen;

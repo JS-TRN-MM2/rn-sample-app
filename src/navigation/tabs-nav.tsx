@@ -7,11 +7,11 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { TabsNavStackParamList, Routes } from '../../types';
 
-import { MyApptsScreen } from '../features';
-import { BsmScreen } from '../features';
-import MyDayStackScreen from './my-day-nav';
-import MyCasesStackNav from './my-cases-nav';
-//import MyCasesStackScreen from "./my-cases-nav";
+import { ShareClosetScreen } from '../features';
+import { DonationsScreen } from '../features';
+import TimeLocStackScreen from './time-loc-nav';
+import MyClosetStackNav from './my-closet-nav';
+//import MyClosetStackScreen from "./my-closet-nav";
 
 type IoniconName = React.ComponentProps<typeof Ionicons>['name'];
 
@@ -22,20 +22,20 @@ const TabsNav = (): React.ReactElement => {
 
   return (
     <Navigator
-      initialRouteName={Routes.BsmScreen}
+      initialRouteName={Routes.DonationsScreen}
       barStyle={{ backgroundColor: 'black' }}
       shifting={false}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color }) => {
           let iconName: IoniconName = 'time';
 
-          if (route.name === Routes.MyDayNav) {
+          if (route.name === Routes.TimeLocNav) {
             iconName = focused ? 'time' : 'time-outline';
-          } else if (route.name === Routes.MyCasesNav) {
+          } else if (route.name === Routes.MyClosetNav) {
             iconName = focused ? 'list-circle' : 'list-circle-outline';
-          } else if (route.name === Routes.MyApptsScreen) {
+          } else if (route.name === Routes.ShareClosetScreen) {
             iconName = focused ? 'calendar' : 'calendar-outline';
-          } else if (route.name === Routes.BsmScreen) {
+          } else if (route.name === Routes.DonationsScreen) {
             iconName = focused ? 'chatbox' : 'chatbox-outline';
           }
 
@@ -45,21 +45,30 @@ const TabsNav = (): React.ReactElement => {
       })}
     >
       <Screen
-        name={Routes.MyDayNav}
-        component={MyDayStackScreen}
-        options={{ tabBarLabel: 'MyDay' }}
+        name={Routes.TimeLocNav}
+        component={TimeLocStackScreen}
+        options={{
+          tabBarLabel: 'TimeLoc',
+        }}
       />
       <Screen
-        name={Routes.MyCasesNav}
-        component={MyCasesStackNav}
-        options={{ tabBarLabel: 'MyCases' }}
+        name={Routes.MyClosetNav}
+        component={MyClosetStackNav}
+        options={{ tabBarLabel: 'MyCloset' }}
       />
       <Screen
-        name={Routes.MyApptsScreen}
-        component={MyApptsScreen}
-        options={{ tabBarLabel: 'MyAppts' }}
+        name={Routes.ShareClosetScreen}
+        component={ShareClosetScreen}
+        options={{
+          title: 'Share Closet',
+          tabBarLabel: 'ShareCloset',
+        }}
       />
-      <Screen name={Routes.BsmScreen} component={BsmScreen} options={{ tabBarLabel: 'BSM' }} />
+      <Screen
+        name={Routes.DonationsScreen}
+        component={DonationsScreen}
+        options={{ tabBarLabel: 'Donations' }}
+      />
     </Navigator>
   );
 };

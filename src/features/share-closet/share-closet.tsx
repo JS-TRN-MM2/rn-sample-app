@@ -6,13 +6,13 @@ interface Props {
   title: string;
 }
 
-const MyApptsScreen: React.FC<Props> = ({ title }) => {
+const ShareClosetScreen: React.FC<Props> = ({ title }) => {
   return (
     <View style={styles.screen}>
-      <Text>My Appts Screen goes here</Text>
+      <Text>Share Closet Items goes here</Text>
       <Text>{title}</Text>
     </View>
   );
 };
 
-export default MyApptsScreen;
+export default ShareClosetScreen;

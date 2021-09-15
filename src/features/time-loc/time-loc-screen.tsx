@@ -2,27 +2,25 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 
-
 import { View, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { MyDayStackParamList, Routes } from '../../../types';
+import { TimeLocStackParamList, Routes } from '../../../types';
 import TimerComponent from './timer/timer';
 
 import styles from './styles';
 
-type myDayScreenProp = {
-  navigation: NativeStackNavigationProp<MyDayStackParamList, Routes.MyDayScreen>;
+type TimeLocScreenProp = {
+  navigation: NativeStackNavigationProp<TimeLocStackParamList, Routes.TimeLocScreen>;
 };
 
-const MyDayScreen: React.FC<myDayScreenProp> = ( { navigation } ) =>
-{
+const TimeLocScreen: React.FC<TimeLocScreenProp> = ({ navigation }) => {
   return (
     <View style={styles.screen}>
-      <Button onPress={() => navigation.navigate(Routes.MyDayInfoScreen)}>
-        <Text style={ styles.infoButtonText }>i</Text>
-      </Button> 
+      <Button onPress={() => navigation.navigate(Routes.TimeLocInfoScreen)}>
+        <Text style={styles.infoButtonText}>i</Text>
+      </Button>
       <View style={styles.timerContainer}>
         <TimerComponent title="Timer Component" />
       </View>
@@ -30,4 +28,4 @@ const MyDayScreen: React.FC<myDayScreenProp> = ( { navigation } ) =>
   );
 };
 
-export default MyDayScreen;
+export default TimeLocScreen;

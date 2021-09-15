@@ -1,4 +1,4 @@
-const mydayinfo: { event: string; time: string }[] = [
+const timeInfo: { event: string; time: string }[] = [
   {
     event: 'Start',
     time: '08:24:08 AM',
@@ -30,4 +30,4 @@ const mydayinfo: { event: string; time: string }[] = [
   },
 ];
 
-export default mydayinfo;
+export default timeInfo;

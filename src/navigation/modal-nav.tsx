@@ -1,17 +1,17 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 
-import { MyCasesStackParamList, Routes } from '../../types';
-import MyCasesScreen from '../features/my-cases/my-cases-screen';
-import MyCasesModal from '../features/my-cases/my-cases-modal';
+import { MyClosetStackParamList, Routes } from '../../types';
+import MyClosetScreen from '../features/my-closet/my-closet-screen';
+import MyClosetModal from '../features/my-closet/my-closet-modal';
 
-const ModalStack = createNativeStackNavigator<MyCasesStackParamList>();
+const ModalStack = createNativeStackNavigator<MyClosetStackParamList>();
 
 const ModalStackScreen = (): React.ReactElement => {
   return (
     <ModalStack.Navigator screenOptions={{ presentation: 'modal' }}>
-      <ModalStack.Screen name={Routes.MyCasesScreen} component={MyCasesScreen} />
-      <ModalStack.Screen name={Routes.MyCasesModal} component={MyCasesModal} />
+      <ModalStack.Screen name={Routes.MyClosetScreen} component={MyClosetScreen} />
+      <ModalStack.Screen name={Routes.MyClosetModal} component={MyClosetModal} />
     </ModalStack.Navigator>
   );
 };

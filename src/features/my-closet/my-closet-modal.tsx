@@ -1,16 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 
-import { MyCasesStackParamList, Routes } from 'types';
+import { MyClosetStackParamList, Routes } from 'types';
 
-type myCasesInfoScreenProps = {
-  navigation: NativeStackNavigationProp<MyCasesStackParamList, Routes.MyCasesModal>;
-  route: RouteProp<MyCasesStackParamList, Routes.MyCasesModal>;
+type MyClosetInfoScreenProps = {
+  navigation: NativeStackNavigationProp<MyClosetStackParamList, Routes.MyClosetModal>;
+  route: RouteProp<MyClosetStackParamList, Routes.MyClosetModal>;
 };
 
-const MyCasesModal: React.FC<myCasesInfoScreenProps> = ({ route, navigation }) => {
+const MyClosetModal: React.FC<MyClosetInfoScreenProps> = ({ route, navigation }) => {
   const screen = Dimensions.get('window');
   const {
     params: { step, desc },
@@ -57,4 +58,4 @@ const MyCasesModal: React.FC<myCasesInfoScreenProps> = ({ route, navigation }) =
   );
 };
 
-export default MyCasesModal;
+export default MyClosetModal;

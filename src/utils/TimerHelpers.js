@@ -6,20 +6,20 @@ import { selectAllTimes } from '../helpers/txTimer';
 
 export const CheckTimerStatus = (isOn, isActive) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [myDayData, setMyDayData] = useState([]);
+  const [TimeLocData, setTimeLocData] = useState([]);
 
   useEffect(() => {
-    setMyDayData(selectAllTimes());
-  }, [myDayData]);
+    setTimeLocData(selectAllTimes());
+  }, [TimeLocData]);
 
-  console.log('what is myDayData', myDayData);
+  console.log('what is TimeLocData', TimeLocData);
 };
 /*
         {
 
             // GET ALL TODAYS TASKS
-                // get all rows from the db with today's date and put them into mydayData:  this should be an array of objects
-                mydayData = databaseHelper.GetMydayDataForToday();
+                // get all rows from the db with today's date and put them into TimeLocData:  this should be an array of objects
+                TimeLocData = databaseHelper.GetTimeLocDataForToday();
             }
             else
             {
@@ -39,8 +39,8 @@ export const CheckTimerStatus = (isOn, isActive) => {
                 });
 
 
-                // if there are any rows returned and in mydayData, then
-            if (mydayData.Count != 0
+                // if there are any rows returned and in TimeLocData, then
+            if (TimeLocData.Count != 0
             {
                 System.TimeSpan task1TmSpan = new TimeSpan(0, 0, 0);
 
@@ -50,28 +50,28 @@ export const CheckTimerStatus = (isOn, isActive) => {
 
 
                 // for each row in the array of mydataData
-                for (int i = 0; i < mydayData.Count; i += 1)
+                for (int i = 0; i < TimeLocData.Count; i += 1)
                 {
                     // make the selected row equal to a new object
 
-                    MTBL_MYDAY mydayObj = mydayData.ElementAt(i);
+                    MTBL_TimeLoc TimeLocObj = TimeLocData.ElementAt(i);
 
                     // now, check in that object.  if the task state equals start then do the following
 
-                    if (mydayObj.TaskState.Equals("Start"))
+                    if (TimeLocObj.TaskState.Equals("Start"))
                     {
-                        // make starttm equal to the mydayobj.timestamp value
+                        // make starttm equal to the TimeLocobj.timestamp value
 
-                        startTm = mydayObj.Timestamp;
+                        startTm = TimeLocObj.Timestamp;
                         // make the endTm equal to the testTm
                         endTm = testTm;
                         //  add an accumlated time variable and, if it is start and it is in the first row, make accumulatedTime equal to start time?
 
                     }
-                    else if (mydayObj.TaskState.Equals("Stop"))
+                    else if (TimeLocObj.TaskState.Equals("Stop"))
                     {
-                        // make endtm equal to the mydayobj.timestamp value
-                        endTm = mydayObj.Timestamp;
+                        // make endtm equal to the TimeLocobj.timestamp value
+                        endTm = TimeLocObj.Timestamp;
 
                         // if startTm is not testTm (testTm) then it won't be the first on
 
@@ -127,7 +127,7 @@ export const CheckTimerStatus = (isOn, isActive) => {
             if (aTimer == null)
             {
                 // create a timer that fires every sec
-                string timerInt = settingsController.GetMyDayTimerIntervel();
+                string timerInt = settingsController.GetTimeLocTimerIntervel();
                 double tm = Convert.ToDouble(timerInt);
                 aTimer = new Timer(tm);
 

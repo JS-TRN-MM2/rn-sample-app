@@ -1,22 +1,22 @@
-import MyDayScreen from './my-day/my-day-screen';
-import MyDayInfoScreen from './my-day/my-day-info-screen';
-import TimerComponent from './my-day/timer/timer';
-import MyCasesScreen from './my-cases/my-cases-screen';
-import MyCasesModal from './my-cases/my-cases-modal';
-import MyApptsScreen from './my-appts/my-appts';
-import BsmScreen from './bsm/bsm';
+import TimeLocScreen from './time-loc/time-loc-screen';
+import TimeLocInfoScreen from './time-loc/time-loc-info-screen';
+import TimerComponent from './time-loc/timer/timer';
+import MyClosetScreen from './my-closet/my-closet-screen';
+import MyClosetModal from './my-closet/my-closet-modal';
+import ShareClosetScreen from './share-closet/share-closet';
+import DonationsScreen from './donations/donations';
 import SplashScreen from './splash/splash';
 import AuthScreen from './auth/auth';
 import SettingsScreen from './settings/settings';
 
 export {
-  MyDayScreen,
-  MyDayInfoScreen,
+  TimeLocScreen,
+  TimeLocInfoScreen,
   TimerComponent,
-  MyCasesScreen,
-  MyCasesModal,
-  MyApptsScreen,
-  BsmScreen,
+  MyClosetScreen,
+  MyClosetModal,
+  ShareClosetScreen,
+  DonationsScreen,
   SplashScreen,
   AuthScreen,
   SettingsScreen,

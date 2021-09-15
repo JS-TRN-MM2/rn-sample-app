@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../app/rootReducer';
 import { setTimer } from './timerSlice';
-import { setLocation } from './../locationSlice';
+import { setLocation } from '../locationSlice';
 
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 

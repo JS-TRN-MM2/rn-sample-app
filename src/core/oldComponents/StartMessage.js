@@ -8,7 +8,7 @@ const StartMessage = (props) => {
     <View style={styles.startMessageContainer}>
       <View>
         <Text style={styles.startMessage}>
-          myDay is about to start. Press STOP on myDay tab when done working
+          TimeLoc is about to start. Press STOP on TimeLoc tab when done working
         </Text>
       </View>
       <View style={styles.okButtonContainer}>

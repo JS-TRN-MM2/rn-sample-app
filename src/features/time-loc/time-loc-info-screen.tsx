@@ -3,15 +3,15 @@ import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Button } from 'react-native-paper';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import mydayinfo from './my-day-info';
+import TimeLocinfo from './time-info';
 
-import { MyDayStackParamList, Routes } from 'types';
+import { TimeLocStackParamList, Routes } from 'types';
 
-type myDayInfoScreenProp = {
-  navigation: NativeStackNavigationProp<MyDayStackParamList, Routes.MyDayInfoScreen>;
+type TimeLocInfoScreenProp = {
+  navigation: NativeStackNavigationProp<TimeLocStackParamList, Routes.TimeLocInfoScreen>;
 };
 
-const MyDayInfoScreen: React.FC<myDayInfoScreenProp> = ({ navigation }) => {
+const TimeLocInfoScreen: React.FC<TimeLocInfoScreenProp> = ({ navigation }) => {
   return (
     <View>
       <View
@@ -36,7 +36,7 @@ const MyDayInfoScreen: React.FC<myDayInfoScreenProp> = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
           style={{ marginHorizontal: 24, paddingTop: 12 }}
         >
-          {mydayinfo.map((item) => {
+          {TimeLocinfo.map((item) => {
             return (
               <Button key={item.time}>
                 <Text
@@ -84,4 +84,4 @@ const MyDayInfoScreen: React.FC<myDayInfoScreenProp> = ({ navigation }) => {
   );
 };
 
-export default MyDayInfoScreen;
+export default TimeLocInfoScreen;

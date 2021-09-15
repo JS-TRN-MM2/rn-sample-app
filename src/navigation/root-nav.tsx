@@ -9,7 +9,7 @@ import {
 import { RootNavParamList, Routes } from '../../types';
 
 import MainNav from './main-nav';
-import MyCasesStackNav from './my-cases-nav';
+import MyClosetStackNav from './my-closet-nav';
 /*
 const modalScreenOptions: NativeStackNavigationOptions = {
   //cardOverlayEnabled: true,
@@ -40,7 +40,7 @@ const RootNav = (): React.ReactElement => {
     <Navigator
     /*
       screenOptions={({ route }) => {
-        const modalOptions = route.params?.screen === 'MyCasesModal' ? modalScreenOptions : {};
+        const modalOptions = route.params?.screen === 'MyClosetModal' ? modalScreenOptions : {};
 
         return {
 
@@ -55,7 +55,7 @@ const RootNav = (): React.ReactElement => {
       */
     >
       <Screen name={Routes.MainNav} component={MainNav} />
-      <Screen name={Routes.MyCasesNav} component={MyCasesStackNav} />
+      <Screen name={Routes.MyClosetNav} component={MyClosetStackNav} />
     </Navigator>
   );
 };

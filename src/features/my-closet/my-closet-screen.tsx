@@ -3,16 +3,16 @@ import { View, Text, Dimensions } from 'react-native';
 import { Button as CustomButton } from '../../core';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { MyCasesStackParamList, Routes } from '../../../types';
+import { MyClosetStackParamList, Routes } from '../../../types';
 import styles from './styles';
 
-import casesteps from './case-steps';
+import closetItems from './my-closet-items';
 
-type myCasesScreenProp = {
-  navigation: NativeStackNavigationProp<MyCasesStackParamList, Routes.MyCasesScreen>;
+type MyClosetScreenProp = {
+  navigation: NativeStackNavigationProp<MyClosetStackParamList, Routes.MyClosetScreen>;
 };
 
-const MyCasesScreen: React.FC<myCasesScreenProp> = ({ navigation }) => {
+const MyClosetScreen: React.FC<MyClosetScreenProp> = ({ navigation }) => {
   const screen = Dimensions.get('window');
 
   return (
@@ -34,18 +34,18 @@ const MyCasesScreen: React.FC<myCasesScreenProp> = ({ navigation }) => {
             backgroundColor: 'rgba(0, 0, 0, 0.7)',
           }}
         >
-          Case Steps
+          Closet Items
         </Text>
         <View style={{ marginHorizontal: 24, paddingTop: 12 }}>
-          {casesteps.map((casestep) => {
+          {closetItems.map((item) => {
             return (
               <CustomButton
-                key={casestep.step}
-                title={casestep.step}
+                key={item.step}
+                title={item.step}
                 onPress={() =>
-                  navigation.navigate(Routes.MyCasesModal, {
-                    step: casestep.step,
-                    desc: casestep.desc,
+                  navigation.navigate(Routes.MyClosetModal, {
+                    step: item.step,
+                    desc: item.desc,
                   })
                 }
               />
@@ -57,4 +57,4 @@ const MyCasesScreen: React.FC<myCasesScreenProp> = ({ navigation }) => {
   );
 };
 
-export default MyCasesScreen;
+export default MyClosetScreen;
