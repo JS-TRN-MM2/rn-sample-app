@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
+import { View, Text, Button, StyleSheet } from 'react-native';
 
 const AddItem = (props) => {
   return (
     <View style={styles.container}>
       <Text>Add Item goes here</Text>
-      <Button>Press Me</Button>
+      <Button title="Click Here" onPress={() => alert('Button Clicked')} />
     </View>
   );
 };
@@ -17,6 +16,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: '#91cbbd',
   },
 });
 

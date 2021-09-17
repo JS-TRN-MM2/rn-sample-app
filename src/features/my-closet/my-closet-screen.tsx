@@ -20,7 +20,7 @@ const MyClosetScreen: React.FC<MyClosetScreenProp> = ({ navigation }) => {
         style={{
           width: screen.width,
           height: screen.height,
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          backgroundColor: '#91cbbd',
         }}
       >
         <Text
