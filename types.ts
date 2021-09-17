@@ -5,27 +5,47 @@ export enum Routes {
   TimeLocInfoScreen = 'TimeLocInfoScreen',
   MyClosetScreen = 'MyClosetScreen',
   MyClosetModal = 'MyClosetModal',
-  ShareClosetScreen = 'ShareClosetScreen',
-  DonationsScreen = 'DonationsScreen',
+  ShareScreen = 'ShareScreen',
+  DonateScreen = 'DonateScreen',
+  AddItemScreen = 'AddItemScreen',
   SplashScreen = 'SplashScreen',
   AuthScreen = 'AuthScreen',
   SettingsScreen = 'SettingsScreen',
   RootNav = 'RootNav',
   TabsNav = 'TabsNav',
   MainNavIos = 'MainNavIos',
-  MoreStackNav = 'MoreStackNav',
+
   MyClosetStackNav = 'MyClosetStackNav',
   ModalNav = 'ModalStackScreen',
   More = 'More',
-  AddItem = 'AddItem',
-  Donation = 'Donation',
-  Share = 'Share',
-  MyCloset = 'MyCloset',
+  AddItemNav = 'AddItemNav',
+  DonateNav = 'DonateNav',
+  ShareNav = 'ShareNav',
+  MyClosetNav = 'MyClosetNav',
+  MoreNav = 'MoreNav',
 }
 
 export type MyClosetStackParamList = {
   [Routes.MyClosetScreen]: undefined;
   [Routes.MyClosetModal]: { step: string; desc: string };
+};
+
+export type ShareStackParamList = {
+  [Routes.ShareScreen]: undefined;
+};
+
+export type AddItemStackParamList = {
+  [Routes.AddItemScreen]: undefined;
+};
+
+export type DonateStackParamList = {
+  [Routes.DonateScreen]: undefined;
+};
+
+export type MoreStackParamList = {
+  [Routes.More]: undefined;
+  [Routes.TimeLocScreen]: undefined;
+  [Routes.TimeLocInfoScreen]: undefined;
 };
 
 export type RootNavParamList = {
@@ -44,23 +64,17 @@ export type MainNavIosStackParamList = {
 };
 
 export type MainNavAndroidStackParamList = {
-  [Routes.MyClosetStackNav]: undefined;
-  [Routes.MoreStackNav]: undefined;
-  [Routes.Share]: undefined;
-  [Routes.Donation]: undefined;
-  [Routes.AddItem]: undefined;
+  [Routes.MyClosetNav]: undefined;
+  [Routes.MoreNav]: undefined;
+  [Routes.ShareNav]: undefined;
+  [Routes.DonateNav]: undefined;
+  [Routes.AddItemNav]: undefined;
 };
 
 export type TabsNavStackParamList = {
-  [Routes.MyClosetStackNav]: undefined;
-  [Routes.MoreStackNav]: undefined;
-  [Routes.Share]: undefined;
-  [Routes.Donation]: undefined;
-  [Routes.AddItem]: undefined;
-};
-
-export type MoreStackParamList = {
-  [Routes.More]: undefined;
-  [Routes.TimeLocScreen]: undefined;
-  [Routes.TimeLocInfoScreen]: undefined;
+  [Routes.MyClosetNav]: undefined;
+  [Routes.MoreNav]: undefined;
+  [Routes.ShareNav]: undefined;
+  [Routes.DonateNav]: undefined;
+  [Routes.AddItemNav]: undefined;
 };

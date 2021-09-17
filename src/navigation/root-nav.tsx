@@ -9,7 +9,7 @@ import {
 import { RootNavParamList, Routes } from '../../types';
 
 import MainNavIos from './main-nav.ios';
-import MyClosetStackNav from './my-closet-nav';
+import MyClosetStackNav from './stacks/my-closet-nav';
 /*
 const modalScreenOptions: NativeStackNavigationOptions = {
   //cardOverlayEnabled: true,

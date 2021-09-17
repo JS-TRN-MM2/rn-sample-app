@@ -4,7 +4,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const Donation = (props) => {
+const DonateScreen = (props) => {
   return (
     <View style={styles.container}>
       <Text>Donation Closet Items goes here</Text>
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Donation;
+export default DonateScreen;

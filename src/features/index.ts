@@ -4,8 +4,8 @@ import TimerComponent from './more/timer/timer';
 import MyCloset from './my-closet';
 import MyClosetScreen from './my-closet/my-closet-screen';
 import MyClosetModal from './my-closet/my-closet-modal';
-import Share from './share';
-import Donation from './donation';
+import ShareScreen from './share';
+import DonateScreen from './donate';
 import SplashScreen from './splash/splash';
 import AuthScreen from './auth/auth';
 import SettingsScreen from './settings/settings';
@@ -19,8 +19,8 @@ export {
   MyCloset,
   MyClosetScreen,
   MyClosetModal,
-  Share,
-  Donation,
+  ShareScreen,
+  DonateScreen,
   SplashScreen,
   AuthScreen,
   SettingsScreen,

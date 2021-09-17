@@ -35,7 +35,6 @@ const App = (): React.ReactElement => {
     void initTimerSvc(db);
     void initLocationSvc(db);
   }, []);
-  console.log('what is the Platform', plat);
 
   return (
     <Provider store={store}>

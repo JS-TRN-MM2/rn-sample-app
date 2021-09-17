@@ -6,10 +6,11 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { MainNavAndroidStackParamList, Routes } from '../../types';
 
-import { Share, AddItem, Donation } from '../features';
-
-import MoreStackNav from './more-nav';
-import MyClosetStackNav from './my-closet-nav';
+import MyClosetNav from '../navigation/stacks/my-closet-nav';
+import ShareNav from '../navigation/stacks/share-nav';
+import AddItemNav from '../navigation/stacks/add-item-nav';
+import DonateNav from '../navigation/stacks/donate-nav';
+import MoreNav from '../navigation/stacks/more-nav';
 
 const DrawerNavStack = createDrawerNavigator<MainNavAndroidStackParamList>();
 
@@ -56,14 +57,14 @@ const MainNavAndroid = (): React.ReactElement => {
   return (
     <Navigator
       drawerContent={(props) => <DrawerContent {...props} />}
-      initialRouteName={Routes.MyClosetStackNav}
+      initialRouteName={Routes.MyClosetNav}
     >
       <Screen name={Routes.MyClosetStackNav} component={MyClosetStackNav} />
-      <Screen name={Routes.Share} component={Share} />
-      <Screen name={Routes.AddItem} component={AddItem} />
+      <Screen name={Routes.ShareNav} component={ShareNav} />
+      <Screen name={Routes.AddItemNav} component={AddItemNav} />
 
-      <Screen name={Routes.Donation} component={Donation} />
-      <Screen name={Routes.MoreStackNav} component={MoreStackNav} />
+      <Screen name={Routes.DonateNav} component={DonateNav} />
+      <Screen name={Routes.MoreNav} component={MoreNav} />
     </Navigator>
   );
 };

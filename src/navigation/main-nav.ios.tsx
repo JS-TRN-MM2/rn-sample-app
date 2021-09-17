@@ -12,8 +12,8 @@ const MainNavIos = (): React.ReactElement => {
   const { Navigator, Screen } = DrawerNavStack;
   return (
     <Navigator initialRouteName={Routes.TabsNav}>
-      <Screen name={Routes.TabsNav} component={TabsNav} />
-      <Screen name={Routes.SettingsScreen} component={SettingsScreen} />
+      <Screen name="Home" component={TabsNav} />
+      <Screen name="Settings" component={SettingsScreen} />
     </Navigator>
   );
 };

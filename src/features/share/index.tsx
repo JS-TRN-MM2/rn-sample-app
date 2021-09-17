@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const Share = (props) => {
+const ShareScreen = (props) => {
   return (
     <View style={styles.screen}>
       <Text>Share Closet Items goes here</Text>
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Share;
+export default ShareScreen;
