@@ -12,6 +12,8 @@ import MoreStackNav from './more-nav';
 import MyClosetStackNav from './my-closet-nav';
 
 const DrawerNavStack = createDrawerNavigator<MainNavAndroidStackParamList>();
+
+import { DrawerContent } from '../features/drawer-content';
 /*
 interface DrawerContainerProps {
   label?: string;
@@ -52,7 +54,10 @@ const drawerOptions = {
 const MainNavAndroid = (): React.ReactElement => {
   const { Navigator, Screen } = DrawerNavStack;
   return (
-    <Navigator initialRouteName={Routes.MyClosetStackNav}>
+    <Navigator
+      drawerContent={(props) => <DrawerContent {...props} />}
+      initialRouteName={Routes.MyClosetStackNav}
+    >
       <Screen name={Routes.MyClosetStackNav} component={MyClosetStackNav} />
       <Screen name={Routes.Share} component={Share} />
       <Screen name={Routes.AddItem} component={AddItem} />
