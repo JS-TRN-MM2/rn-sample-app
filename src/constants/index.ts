@@ -1,4 +1,5 @@
-import colors from './colors';
+//import colors from './colors';
 import consts from './consts';
 
-export { colors, consts };
+//export { colors, consts };
+export { consts };

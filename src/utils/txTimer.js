@@ -9,9 +9,9 @@ export const initTimerSvc = (db) => {
 
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
-      tx.executeSql('DROP TABLE IF EXISTS MTBL_MYDAY', []);
+      tx.executeSql('DROP TABLE IF EXISTS MTBL_TimeLoc', []);
       tx.executeSql(
-        "CREATE TABLE IF NOT EXISTS MTBL_MYDAY (id INTEGER PRIMARY KEY NOT NULL, timestamp time default (strftime('%s', 'now')), taskstate TEXT, userId INTEGER);",
+        "CREATE TABLE IF NOT EXISTS MTBL_TimeLoc (id INTEGER PRIMARY KEY NOT NULL, timestamp time default (strftime('%s', 'now')), taskstate TEXT, userId INTEGER);",
         [],
       );
     });
@@ -25,7 +25,7 @@ export const insertTime = (taskstate, userId) => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'INSERT INTO MTBL_MYDAY (taskstate, userId) VALUES (?, ?)',
+        'INSERT INTO MTBL_TimeLoc (taskstate, userId) VALUES (?, ?)',
         [taskstate, userId],
         (_, result) => {
           resolve(result);
@@ -38,22 +38,21 @@ export const insertTime = (taskstate, userId) => {
   });
   return promise;
 };
-export const selectAllTimes = () =>
-{
+export const selectAllTimes = () => {
   const db = SQLite.openDatabase('rn-sample.db');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'SELECT * FROM MTBL_MYDAY',
+        'SELECT * FROM MTBL_TimeLoc',
         [],
         (_, result) => {
           //console.log('results are', result);
-          //let myDayData = result.rows;
-          //console.log('mydaydata is ',myDayData);
+          //let TimeLocData = result.rows;
+          //console.log('TimeLocdata is ',TimeLocData);
           resolve(result);
         },
         (_, err) => {
-          console.log('Add row to MTBL_MYDAY failed');
+          console.log('Add row to MTBL_TimeLoc failed');
           reject(err);
         },
       );
@@ -66,7 +65,7 @@ export const deleteAllTimes = () => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'DELETE FROM MTBL_MYDAY',
+        'DELETE FROM MTBL_TimeLoc',
         [],
         (_, result) => {
           resolve(result);

@@ -1,51 +1,100 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
 
 export enum Routes {
-  MyDayScreen = 'MyDayScreen',
-  MyDayInfoScreen = 'MyDayInfoScreen',
-  MyCasesScreen = 'MyCasesScreen',
-  MyCasesModal = 'MyCasesModal',
-  MyApptsScreen = 'MyApptsScreen',
-  BsmScreen = 'BsmScreen',
+  TimeLocScreen = 'TimeLocScreen',
+  TimeLocInfoScreen = 'TimeLocInfoScreen',
+  MyClosetScreen = 'MyClosetScreen',
+  MyClosetModal = 'MyClosetModal',
+  HomeScreen = 'HomeScreen',
+  CardListScreen = 'CardListScreen',
+  CardItemDetails = 'CardItemDetails',
+  ShareScreen = 'ShareScreen',
+  DonateScreen = 'DonateScreen',
+  AddItemScreen = 'AddItemScreen',
   SplashScreen = 'SplashScreen',
+  SignInScreen = 'SignInScreen',
+  SignUpScreen = 'SignUpScreen',
+  ProfileScreen = 'ProfileScreen',
+  EditProfileScreen = 'EditProfileScreen',
+  More = 'More',
   AuthScreen = 'AuthScreen',
   SettingsScreen = 'SettingsScreen',
+  EditSettingsScreen = 'EditSettingsScreen',
+  NotificationScreen = 'NotificationScreen',
   RootNav = 'RootNav',
-  TabsNav = 'TabsNav',
-  MainNav = 'MainNav',
-  MyDayNav = 'MyDayStackNav',
-  MyCasesNav = 'MyCasesStackNav',
-  ModalNav = 'ModalStackScreen',
+  MainTabScreen = 'MainTabScreen',
+
+  MyClosetStackScreen = 'MyClosetStackScreen',
+  ModalStackScreen = 'ModalStackScreen',
+
+  HomeStackScreen = 'HomeStackScreen',
+  AddItemStackScreen = 'AddItemStackScreen',
+  DonateStackScreen = 'DonateStackScreen',
+  ShareStackScreen = 'ShareStackScreen',
+  MoreStackScreen = 'MoreStackScreen',
+  ProfileStackScreen = 'ProfileStackScreen',
 }
-
-export type MyCasesStackParamList = {
-  [Routes.MyCasesScreen]: undefined;
-  [Routes.MyCasesModal]: { step: string; desc: string };
+export type HomeStackParamList = {
+  [Routes.HomeScreen]: undefined;
+  [Routes.CardListScreen]: undefined;
+  [Routes.CardItemDetails]: undefined;
 };
 
-export type RootNavParamList = {
-  [Routes.MainNav]: NavigatorScreenParams<MainNavStackParamList>;
-  [Routes.MyCasesNav]: NavigatorScreenParams<MyCasesStackParamList>;
+export type MyClosetStackParamList = {
+  [Routes.MyClosetScreen]: undefined;
+  [Routes.MyClosetModal]: { step: string; desc: string };
 };
 
-export type FirstNavStackParamList = {
-  [Routes.SplashScreen]: undefined;
-  [Routes.MainNav]: undefined;
+export type ShareStackParamList = {
+  [Routes.ShareScreen]: undefined;
 };
 
-export type MainNavStackParamList = {
-  [Routes.TabsNav]: undefined;
+export type AddItemStackParamList = {
+  [Routes.AddItemScreen]: undefined;
+};
+
+export type DonateStackParamList = {
+  [Routes.DonateScreen]: undefined;
+};
+
+export type NotificationStackParamList = {
+  [Routes.NotificationScreen]: undefined;
+};
+
+export type SettingsStackParamList = {
   [Routes.SettingsScreen]: undefined;
+  [Routes.EditSettingsScreen]: undefined;
 };
 
-export type TabsNavStackParamList = {
-  [Routes.MyDayNav]: undefined;
-  [Routes.MyCasesNav]: undefined;
-  [Routes.MyApptsScreen]: undefined;
-  [Routes.BsmScreen]: undefined;
+export type ProfileStackParamList = {
+  [Routes.ProfileScreen]: undefined;
+  [Routes.EditProfileScreen]: undefined;
 };
 
-export type MyDayStackParamList = {
-  [Routes.MyDayScreen]: undefined;
-  [Routes.MyDayInfoScreen]: undefined;
+export type MoreStackParamList = {
+  [Routes.More]: undefined;
+  [Routes.TimeLocScreen]: undefined;
+  [Routes.TimeLocInfoScreen]: undefined;
+};
+
+export type RootStackParamList = {
+  [Routes.SplashScreen]: undefined;
+  [Routes.SignInScreen]: undefined;
+  [Routes.SignUpScreen]: undefined;
+};
+
+export type MainNavAndroidStackParamList = {
+  [Routes.MyClosetStackScreen]: undefined;
+  [Routes.MoreStackScreen]: undefined;
+  [Routes.ShareStackScreen]: undefined;
+  [Routes.DonateStackScreen]: undefined;
+  [Routes.AddItemStackScreen]: undefined;
+};
+
+export type MainTabStackParamList = {
+  [Routes.MyClosetStackScreen]: undefined;
+  [Routes.MoreStackScreen]: undefined;
+  [Routes.ShareStackScreen]: undefined;
+  [Routes.DonateStackScreen]: undefined;
+  [Routes.AddItemStackScreen]: undefined;
 };
