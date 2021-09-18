@@ -59,7 +59,7 @@ const MainNavAndroid = (): React.ReactElement => {
       drawerContent={(props) => <DrawerContent {...props} />}
       initialRouteName={Routes.MyClosetNav}
     >
-      <Screen name={Routes.MyClosetStackNav} component={MyClosetStackNav} />
+      <Screen name={Routes.MyClosetNav} component={MyClosetNav} />
       <Screen name={Routes.ShareNav} component={ShareNav} />
       <Screen name={Routes.AddItemNav} component={AddItemNav} />
 
