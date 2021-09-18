@@ -5,25 +5,40 @@ export enum Routes {
   TimeLocInfoScreen = 'TimeLocInfoScreen',
   MyClosetScreen = 'MyClosetScreen',
   MyClosetModal = 'MyClosetModal',
+  HomeScreen = 'HomeScreen',
+  CardListScreen = 'CardListScreen',
+  CardItemDetails = 'CardItemDetails',
   ShareScreen = 'ShareScreen',
   DonateScreen = 'DonateScreen',
   AddItemScreen = 'AddItemScreen',
   SplashScreen = 'SplashScreen',
+  SignInScreen = 'SignInScreen',
+  SignUpScreen = 'SignUpScreen',
+  ProfileScreen = 'ProfileScreen',
+  EditProfileScreen = 'EditProfileScreen',
+  More = 'More',
   AuthScreen = 'AuthScreen',
   SettingsScreen = 'SettingsScreen',
+  EditSettingsScreen = 'EditSettingsScreen',
+  NotificationScreen = 'NotificationScreen',
   RootNav = 'RootNav',
-  TabsNav = 'TabsNav',
-  MainNavIos = 'MainNavIos',
+  MainTabScreen = 'MainTabScreen',
 
-  MyClosetStackNav = 'MyClosetStackNav',
-  ModalNav = 'ModalStackScreen',
-  More = 'More',
-  AddItemNav = 'AddItemNav',
-  DonateNav = 'DonateNav',
-  ShareNav = 'ShareNav',
-  MyClosetNav = 'MyClosetNav',
-  MoreNav = 'MoreNav',
+  MyClosetStackScreen = 'MyClosetStackScreen',
+  ModalStackScreen = 'ModalStackScreen',
+
+  HomeStackScreen = 'HomeStackScreen',
+  AddItemStackScreen = 'AddItemStackScreen',
+  DonateStackScreen = 'DonateStackScreen',
+  ShareStackScreen = 'ShareStackScreen',
+  MoreStackScreen = 'MoreStackScreen',
+  ProfileStackScreen = 'ProfileStackScreen',
 }
+export type HomeStackParamList = {
+  [Routes.HomeScreen]: undefined;
+  [Routes.CardListScreen]: undefined;
+  [Routes.CardItemDetails]: undefined;
+};
 
 export type MyClosetStackParamList = {
   [Routes.MyClosetScreen]: undefined;
@@ -42,39 +57,44 @@ export type DonateStackParamList = {
   [Routes.DonateScreen]: undefined;
 };
 
+export type NotificationStackParamList = {
+  [Routes.NotificationScreen]: undefined;
+};
+
+export type SettingsStackParamList = {
+  [Routes.SettingsScreen]: undefined;
+  [Routes.EditSettingsScreen]: undefined;
+};
+
+export type ProfileStackParamList = {
+  [Routes.ProfileScreen]: undefined;
+  [Routes.EditProfileScreen]: undefined;
+};
+
 export type MoreStackParamList = {
   [Routes.More]: undefined;
   [Routes.TimeLocScreen]: undefined;
   [Routes.TimeLocInfoScreen]: undefined;
 };
 
-export type RootNavParamList = {
-  [Routes.MainNavIos]: NavigatorScreenParams<MainNavIosStackParamList>;
-  [Routes.MyClosetStackNav]: NavigatorScreenParams<MyClosetStackParamList>;
-};
-
-export type FirstNavStackParamList = {
+export type RootStackParamList = {
   [Routes.SplashScreen]: undefined;
-  [Routes.MainNavIos]: undefined;
-};
-
-export type MainNavIosStackParamList = {
-  [Routes.TabsNav]: undefined;
-  [Routes.SettingsScreen]: undefined;
+  [Routes.SignInScreen]: undefined;
+  [Routes.SignUpScreen]: undefined;
 };
 
 export type MainNavAndroidStackParamList = {
-  [Routes.MyClosetNav]: undefined;
-  [Routes.MoreNav]: undefined;
-  [Routes.ShareNav]: undefined;
-  [Routes.DonateNav]: undefined;
-  [Routes.AddItemNav]: undefined;
+  [Routes.MyClosetStackScreen]: undefined;
+  [Routes.MoreStackScreen]: undefined;
+  [Routes.ShareStackScreen]: undefined;
+  [Routes.DonateStackScreen]: undefined;
+  [Routes.AddItemStackScreen]: undefined;
 };
 
-export type TabsNavStackParamList = {
-  [Routes.MyClosetNav]: undefined;
-  [Routes.MoreNav]: undefined;
-  [Routes.ShareNav]: undefined;
-  [Routes.DonateNav]: undefined;
-  [Routes.AddItemNav]: undefined;
+export type MainTabStackParamList = {
+  [Routes.MyClosetStackScreen]: undefined;
+  [Routes.MoreStackScreen]: undefined;
+  [Routes.ShareStackScreen]: undefined;
+  [Routes.DonateStackScreen]: undefined;
+  [Routes.AddItemStackScreen]: undefined;
 };

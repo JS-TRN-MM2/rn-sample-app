@@ -9,7 +9,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { TabScene } from 'react-navigation';
 import withBadge from '../components/withBadge';
-import { MyCloset, Share, AddItem, Donation, More } from '../features';
+import { MyCloset, Share, AddItem, Donation, More } from '../screens';
 //import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 const stackConfig = {
