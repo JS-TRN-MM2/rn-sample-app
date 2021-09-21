@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -12,67 +13,35 @@ import {
   StyleSheet,
 } from 'react-native';
 
-//import { useTheme } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 
-//import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-//import FontAwesome from 'react-native-vector-icons/FontAwesome';
-//import Feather from 'react-native-vector-icons/Feather';
+import { MaterialCommunityIcons, FontAwesome, Feather } from '@expo/vector-icons';
 
-//import BottomSheet from 'reanimated-bottom-sheet';
-//import Animated from 'react-native-reanimated';
-
-//import ImagePicker from 'react-native-image-crop-picker';
+import BottomSheet from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
 
 const EditProfileScreen = () => {
-  /*
-  const [image, setImage] = useState('https://api.adorable.io/avatars/80/abott@adorable.png');
   const { colors } = useTheme();
 
-  const takePhotoFromCamera = () => {
-    ImagePicker.openCamera({
-      compressImageMaxWidth: 300,
-      compressImageMaxHeight: 300,
-      cropping: true,
-      compressImageQuality: 0.7,
-    }).then((image) => {
-      console.log(image);
-      setImage(image.path);
-      this.bs.current.snapTo(1);
-    });
-  };
-
-  const choosePhotoFromLibrary = () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 300,
-      cropping: true,
-      compressImageQuality: 0.7,
-    }).then((image) => {
-      console.log(image);
-      setImage(image.path);
-      this.bs.current.snapTo(1);
-    });
-  };
-
-  renderInner = () => (
+  const renderInner = () => (
     <View style={styles.panel}>
       <View style={{ alignItems: 'center' }}>
         <Text style={styles.panelTitle}>Upload Photo</Text>
         <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
       </View>
-      <TouchableOpacity style={styles.panelButton} onPress={takePhotoFromCamera}>
+      <TouchableOpacity style={styles.panelButton}>
         <Text style={styles.panelButtonTitle}>Take Photo</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.panelButton} onPress={choosePhotoFromLibrary}>
+      <TouchableOpacity style={styles.panelButton}>
         <Text style={styles.panelButtonTitle}>Choose From Library</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.panelButton} onPress={() => this.bs.current.snapTo(1)}>
+      <TouchableOpacity style={styles.panelButton} onPress={() => bs.current.snapTo(1)}>
         <Text style={styles.panelButtonTitle}>Cancel</Text>
       </TouchableOpacity>
     </View>
   );
 
-  renderHeader = () => (
+  const renderHeader = () => (
     <View style={styles.header}>
       <View style={styles.panelHeader}>
         <View style={styles.panelHandle} />
@@ -80,46 +49,36 @@ const EditProfileScreen = () => {
     </View>
   );
 
-  bs = React.createRef();
-  fall = new Animated.Value(1);
-*/
+  const bs = useRef();
+  const fall = new Animated.Value(1);
 
   return (
     <View style={styles.container}>
-      <Text>Settings Screen goes here</Text>
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
-    </View>
-  );
-  /*
-  return (
-    <View style={styles.container}>
       <BottomSheet
-        ref={this.bs}
+        ref={bs}
         snapPoints={[330, 0]}
-        renderContent={this.renderInner}
-        renderHeader={this.renderHeader}
+        renderContent={renderInner}
+        renderHeader={renderHeader}
         initialSnap={1}
-        callbackNode={this.fall}
+        callbackNode={fall}
         enabledGestureInteraction={true}
       />
       <Animated.View
-        style={{ margin: 20, opacity: Animated.add(0.1, Animated.multiply(this.fall, 1.0)) }}
+        style={{ margin: 20, opacity: Animated.add(0.1, Animated.multiply(fall, 1.0)) }}
       >
         <View style={{ alignItems: 'center' }}>
-          <TouchableOpacity onPress={() => this.bs.current.snapTo(0)}>
+          <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
             <View
               style={{
                 height: 100,
                 width: 100,
                 borderRadius: 15,
                 justifyContent: 'center',
-                alignItems: 'center',
+                alignItems: 'center,',
               }}
             >
               <ImageBackground
-                source={{
-                  uri: image,
-                }}
+                source={require('./femaleAvatar.png')}
                 style={{ height: 100, width: 100 }}
                 imageStyle={{ borderRadius: 15 }}
               >
@@ -130,7 +89,7 @@ const EditProfileScreen = () => {
                     alignItems: 'center',
                   }}
                 >
-                  <Icon
+                  <MaterialCommunityIcons
                     name="camera"
                     size={35}
                     color="#fff"
@@ -148,101 +107,101 @@ const EditProfileScreen = () => {
             </View>
           </TouchableOpacity>
           <Text style={{ marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>John Doe</Text>
-        </View>
 
-        <View style={styles.action}>
-          <FontAwesome name="user-o" color={colors.text} size={20} />
-          <TextInput
-            placeholder="First Name"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
+          <View style={styles.action}>
+            <FontAwesome name="user-o" color={colors.text} size={20} />
+            <TextInput
+              placeholder="First Name"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              style={[styles.textInput, { color: colors.text }]}
+            />
+          </View>
+
+          <View style={styles.action}>
+            <FontAwesome name="user-o" color={colors.text} size={20} />
+            <TextInput
+              placeholder="Last Name"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              style={[
+                styles.textInput,
+                {
+                  color: colors.text,
+                },
+              ]}
+            />
+          </View>
+
+          <View style={styles.action}>
+            <Feather name="phone" color={colors.text} size={20} />
+            <TextInput
+              placeholder="Phone"
+              placeholderTextColor="#666666"
+              keyboardType="number-pad"
+              autoCorrect={false}
+              style={[
+                styles.textInput,
+                {
+                  color: colors.text,
+                },
+              ]}
+            />
+          </View>
+
+          <View style={styles.action}>
+            <FontAwesome name="envelope-o" color={colors.text} size={20} />
+            <TextInput
+              placeholder="Email"
+              placeholderTextColor="#666666"
+              keyboardType="email-address"
+              autoCorrect={false}
+              style={[
+                styles.textInput,
+                {
+                  color: colors.text,
+                },
+              ]}
+            />
+          </View>
+
+          <View style={styles.action}>
+            <FontAwesome name="globe" color={colors.text} size={20} />
+            <TextInput
+              placeholder="Country"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              style={[
+                styles.textInput,
+                {
+                  color: colors.text,
+                },
+              ]}
+            />
+          </View>
+
+          <View style={styles.action}>
+            <MaterialCommunityIcons name="map-marker-outline" color={colors.text} size={20} />
+            <TextInput
+              placeholder="City"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              style={[
+                styles.textInput,
+                {
+                  color: colors.text,
+                },
+              ]}
+            />
+          </View>
+
+          <TouchableOpacity style={styles.commandButton} onPress={() => {}}>
+            <Text style={styles.panelButtonTitle}>Submit</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.action}>
-          <FontAwesome name="user-o" color={colors.text} size={20} />
-          <TextInput
-            placeholder="Last Name"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View>
-        <View style={styles.action}>
-          <Feather name="phone" color={colors.text} size={20} />
-          <TextInput
-            placeholder="Phone"
-            placeholderTextColor="#666666"
-            keyboardType="number-pad"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View>
-        <View style={styles.action}>
-          <FontAwesome name="envelope-o" color={colors.text} size={20} />
-          <TextInput
-            placeholder="Email"
-            placeholderTextColor="#666666"
-            keyboardType="email-address"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View>
-        <View style={styles.action}>
-          <FontAwesome name="globe" color={colors.text} size={20} />
-          <TextInput
-            placeholder="Country"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View>
-        <View style={styles.action}>
-          <Icon name="map-marker-outline" color={colors.text} size={20} />
-          <TextInput
-            placeholder="City"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-                color: colors.text,
-              },
-            ]}
-          />
-        </View>
-        <TouchableOpacity style={styles.commandButton} onPress={() => {}}>
-          <Text style={styles.panelButtonTitle}>Submit</Text>
-        </TouchableOpacity>
       </Animated.View>
     </View>
   );
-  */
 };
 
 export default EditProfileScreen;
@@ -291,7 +250,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   panelTitle: {
-    fontSize: 27,
+    fontSize: 20,
     height: 35,
   },
   panelSubtitle: {
@@ -301,14 +260,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   panelButton: {
-    padding: 13,
-    borderRadius: 10,
+    padding: 10,
+    borderRadius: 8,
     backgroundColor: '#FF6347',
     alignItems: 'center',
     marginVertical: 7,
   },
   panelButtonTitle: {
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
   },
@@ -318,7 +277,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
-    paddingBottom: 5,
+    paddingBottom: 10,
   },
   actionError: {
     flexDirection: 'row',

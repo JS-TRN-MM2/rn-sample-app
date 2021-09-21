@@ -9,7 +9,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import HomeStackScreen from './HomeStackScreen';
 import MyClosetStackScreen from './MyClosetStackScreen';
 import ShareStackScreen from './ShareStackScreen';
-import AddItemStackScreen from './AddItemStackScreen';
+//import AddItemStackScreen from './AddItemStackScreen';
+import ProfileStackScreen from './ProfileStackScreen';
 import DonateStackScreen from './DonateStackScreen';
 import MoreStackScreen from './MoreStackScreen';
 
@@ -48,8 +49,8 @@ const MainTabScreen = () => {
         }}
       />
       <MainTabStack.Screen
-        name={Routes.AddItemStackScreen}
-        component={AddItemStackScreen}
+        name={Routes.ProfileStackScreen}
+        component={ProfileStackScreen}
         options={{
           tabBarLabel: 'Profile',
           tabBarColor: '#694fad',

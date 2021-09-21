@@ -1,89 +1,48 @@
 import React from 'react';
-import { View, SafeAreaView, StyleSheet } from 'react-native';
+import { View, SafeAreaView, Button, StyleSheet } from 'react-native';
 import { Avatar, Title, Caption, Text, TouchableRipple } from 'react-native-paper';
-
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-//import Share from 'react-native-share';
-
-//import files from '../assets/filesBase64';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const ProfileScreen = () => {
-
-  return (
-    <View style={styles.container}>
-      <Text>This is the Profile screen</Text>
-    </View>
-  /*
-  const myCustomShare = async () => {
-    const shareOptions = {
-      message:
-        "Order your next meal from FoodFinder App. I've already ordered more than 10 meals on it.",
-      url: files.appLogo,
-      // urls: [files.image1, files.image2]
-    };
-
-    try {
-      const ShareResponse = await Share.open(shareOptions);
-      console.log(JSON.stringify(ShareResponse));
-    } catch (error) {
-      console.log('Error => ', error);
-    }
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.userInfoSection}>
         <View style={{ flexDirection: 'row', marginTop: 15 }}>
           <Avatar.Image
             source={{
-              uri: 'https://api.adorable.io/avatars/80/abott@adorable.png',
+              uri: 'femaleAvatar.png',
             }}
-            size={80}
+            size={60}
           />
           <View style={{ marginLeft: 20 }}>
-            <Title
-              style={[
-                styles.title,
-                {
-                  marginTop: 15,
-                  marginBottom: 5,
-                },
-              ]}
-            >
-              John Doe
-            </Title>
-            <Caption style={styles.caption}>@j_doe</Caption>
+            <Title style={styles.title}>John Doe</Title>
+            <Caption style={[styles.caption, { marginBottom: 15 }]}>@j_doe</Caption>
+          </View>
+        </View>
+
+        <View style={styles.userInfoSection}>
+          <View style={styles.row}>
+            <MaterialCommunityIcons name="map-marker-radius" color="#777777" size={20} />
+            <Text style={{ color: '#777777', marginLeft: 20 }}>Kolkata, India</Text>
+          </View>
+        </View>
+        <View style={styles.userInfoSection}>
+          <View style={styles.row}>
+            <MaterialCommunityIcons name="phone" color="#777777" size={20} />
+            <Text style={{ color: '#777777', marginLeft: 20 }}>301-656-0987</Text>
+          </View>
+        </View>
+        <View style={styles.userInfoSection}>
+          <View style={styles.row}>
+            <MaterialCommunityIcons name="email" color="#777777" size={20} />
+            <Text style={{ color: '#777777', marginLeft: 20 }}>john_doe@email.com</Text>
           </View>
         </View>
       </View>
 
-      <View style={styles.userInfoSection}>
-        <View style={styles.row}>
-          <Icon name="map-marker-radius" color="#777777" size={20} />
-          <Text style={{ color: '#777777', marginLeft: 20 }}>Kolkata, India</Text>
-        </View>
-        <View style={styles.row}>
-          <Icon name="phone" color="#777777" size={20} />
-          <Text style={{ color: '#777777', marginLeft: 20 }}>+91-900000009</Text>
-        </View>
-        <View style={styles.row}>
-          <Icon name="email" color="#777777" size={20} />
-          <Text style={{ color: '#777777', marginLeft: 20 }}>john_doe@email.com</Text>
-        </View>
-      </View>
-
       <View style={styles.infoBoxWrapper}>
-        <View
-          style={[
-            styles.infoBox,
-            {
-              borderRightColor: '#dddddd',
-              borderRightWidth: 1,
-            },
-          ]}
-        >
-          <Title>₹140.50</Title>
+        <View style={[styles.infoBox, { borderRightColor: '#dddddd', borderRightWidth: 1 }]}>
+          <Title>$140</Title>
           <Caption>Wallet</Caption>
         </View>
         <View style={styles.infoBox}>
@@ -95,41 +54,38 @@ const ProfileScreen = () => {
       <View style={styles.menuWrapper}>
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
-            <Icon name="heart-outline" color="#FF6347" size={25} />
+            <MaterialCommunityIcons name="heart-outline" color="#FF6347" size={25} />
             <Text style={styles.menuItemText}>Your Favorites</Text>
           </View>
         </TouchableRipple>
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
-            <Icon name="credit-card" color="#FF6347" size={25} />
+            <MaterialCommunityIcons name="credit-card" color="#FF6347" size={25} />
             <Text style={styles.menuItemText}>Payment</Text>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={myCustomShare}>
-          <View style={styles.menuItem}>
-            <Icon name="share-outline" color="#FF6347" size={25} />
-            <Text style={styles.menuItemText}>Tell Your Friends</Text>
           </View>
         </TouchableRipple>
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
-            <Icon name="account-check-outline" color="#FF6347" size={25} />
+            <MaterialCommunityIcons name="share-outline" color="#FF6347" size={25} />
+            <Text style={styles.menuItemText}>Tell your friends</Text>
+          </View>
+        </TouchableRipple>
+        <TouchableRipple onPress={() => {}}>
+          <View style={styles.menuItem}>
+            <MaterialCommunityIcons name="account-outline" color="#FF6347" size={25} />
             <Text style={styles.menuItemText}>Support</Text>
           </View>
         </TouchableRipple>
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
-            <Icon name="settings-outline" color="#FF6347" size={25} />
+            <MaterialCommunityIcons name="settings-helper" color="#FF6347" size={25} />
             <Text style={styles.menuItemText}>Settings</Text>
           </View>
         </TouchableRipple>
       </View>
     </SafeAreaView>
   );
-  */
 };
-
-export default ProfileScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -137,10 +93,10 @@ const styles = StyleSheet.create({
   },
   userInfoSection: {
     paddingHorizontal: 30,
-    marginBottom: 25,
+    marginBottom: 8,
   },
   title: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   caption: {
@@ -158,7 +114,7 @@ const styles = StyleSheet.create({
     borderTopColor: '#dddddd',
     borderTopWidth: 1,
     flexDirection: 'row',
-    height: 100,
+    height: 80,
   },
   infoBox: {
     width: '50%',
@@ -170,7 +126,7 @@ const styles = StyleSheet.create({
   },
   menuItem: {
     flexDirection: 'row',
-    paddingVertical: 15,
+    paddingVertical: 8,
     paddingHorizontal: 30,
   },
   menuItemText: {
@@ -181,3 +137,5 @@ const styles = StyleSheet.create({
     lineHeight: 26,
   },
 });
+
+export default ProfileScreen;
