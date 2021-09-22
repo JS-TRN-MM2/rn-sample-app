@@ -167,7 +167,8 @@ const App = (): React.ReactElement => {
     <PaperProvider theme={theme}>
       <AuthContext.Provider value={authContext}>
         <NavigationContainer theme={theme}>
-          {console.log('what is loginState?', loginState.userToken)}
+          <RootStackScreen navigation={undefined} />
+          {/*
           {loginState.userToken == null ? (
             <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
               <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
@@ -176,6 +177,7 @@ const App = (): React.ReactElement => {
           ) : (
             <RootStackScreen navigation={undefined} />
           )}
+          */}
         </NavigationContainer>
       </AuthContext.Provider>
     </PaperProvider>

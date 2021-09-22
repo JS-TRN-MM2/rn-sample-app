@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import {
   View,
@@ -10,9 +13,8 @@ import {
   Alert,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import LinearGradient from 'expo-linear-gradient';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
+import { LinearGradient } from 'expo-linear-gradient';
+import { FontAwesome, Feather } from '@expo/vector-icons';
 
 import { useTheme } from 'react-native-paper';
 
@@ -21,7 +23,6 @@ import { useTheme } from 'react-native-paper';
 import Users from '../models/users';
 
 const SignInScreen = ({ navigation }) => {
-  /*
   const [data, setData] = React.useState({
     username: '',
     password: '',
@@ -33,9 +34,9 @@ const SignInScreen = ({ navigation }) => {
 
   const { colors } = useTheme();
 
-  const { signIn } = React.useContext(AuthContext);
+  //const { signIn } = React.useContext(AuthContext);
 
-  const textInputChange = (val) => {
+  const textInputChange = (val: { trim: () => { (): any; new (): any; length: number } }) => {
     if (val.trim().length >= 4) {
       setData({
         ...data,
@@ -53,7 +54,7 @@ const SignInScreen = ({ navigation }) => {
     }
   };
 
-  const handlePasswordChange = (val) => {
+  const handlePasswordChange = (val: any) => {
     if (val.trim().length >= 8) {
       setData({
         ...data,
@@ -76,7 +77,9 @@ const SignInScreen = ({ navigation }) => {
     });
   };
 
-  const handleValidUser = (val) => {
+  const handleValidUser = (val: any) => {
+    console.log('this is handleValidUser');
+    /*
     if (val.trim().length >= 4) {
       setData({
         ...data,
@@ -88,9 +91,12 @@ const SignInScreen = ({ navigation }) => {
         isValidUser: false,
       });
     }
+    */
   };
 
-  const loginHandle = (userName, password) => {
+  const loginHandle = (userName: any, password: any) => {
+    console.log('this is login handle');
+    /*
     const foundUser = Users.filter((item) => {
       return userName == item.username && password == item.password;
     });
@@ -107,15 +113,8 @@ const SignInScreen = ({ navigation }) => {
       return;
     }
     signIn(foundUser);
+    */
   };
-  */
-
-  return (
-    <View style={styles.container}>
-      <Text>Signin Screen goes here</Text>
-    </View>
-  );
-  /*
 
   return (
     <View style={styles.container}>
@@ -154,8 +153,10 @@ const SignInScreen = ({ navigation }) => {
               },
             ]}
             autoCapitalize="none"
-            onChangeText={(val) => textInputChange(val)}
-            onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
+            onChangeText={(val: any) => textInputChange(val)}
+            onEndEditing={(e: { nativeEvent: { text: any } }) =>
+              handleValidUser(e.nativeEvent.text)
+            }
           />
           {data.check_textInputChange ? (
             <Animatable.View animation="bounceIn">
@@ -193,7 +194,7 @@ const SignInScreen = ({ navigation }) => {
               },
             ]}
             autoCapitalize="none"
-            onChangeText={(val) => handlePasswordChange(val)}
+            onChangeText={(val: any) => handlePasswordChange(val)}
           />
           <TouchableOpacity onPress={updateSecureTextEntry}>
             {data.secureTextEntry ? (
@@ -259,7 +260,6 @@ const SignInScreen = ({ navigation }) => {
       </Animatable.View>
     </View>
   );
-  */
 };
 
 export default SignInScreen;

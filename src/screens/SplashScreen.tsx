@@ -1,87 +1,115 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React from 'react';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { Routes } from '../../types';
 
-import { ParamListBase } from '@react-navigation/routers';
+import React, { useRef } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+  StyleSheet,
+  StatusBar,
+  Image,
+  Animated,
+} from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import { LinearGradient } from 'expo-linear-gradient';
+import { MaterialIcons } from '@expo/vector-icons';
+import { ParamListBase, useTheme } from '@react-navigation/native';
+
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export interface SplashScreenProps {
   navigation: NativeStackNavigationProp<ParamListBase, 'SplashScreen'>;
 }
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
+  const { colors } = useTheme();
+
   return (
-    <View style={styles.root}>
-      <Text style={styles.greeting}>React Native Sample App</Text>
-      <View style={styles.listRow}>
-        <Text style={styles.listBullet}>{'\u2022'}</Text>
-        <Text style={styles.listItem}>TypeScript</Text>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Animatable.Image
+          animation="bounceIn"
+          duration="1500"
+          source={require('../assets/startbutton.png')}
+          style={styles.logo}
+          resizeMode="stretch"
+        />
       </View>
-      <View style={styles.listRow}>
-        <Text style={styles.listBullet}>{'\u2022'}</Text>
-        <Text style={styles.listItem}>React Navigation 6</Text>
-      </View>
-      <View style={styles.listRow}>
-        <Text style={styles.listBullet}>{'\u2022'}</Text>
-        <Text style={styles.listItem}>Redux</Text>
-      </View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate(Routes.MainNavIos)}
-      >
-        <Text style={styles.buttontext}>Enter the App</Text>
-      </TouchableOpacity>
+      <Animatable.View style={styles.footer} animation="fadeInUpBig">
+        <Text
+          style={[
+            styles.title,
+            {
+              color: colors.text,
+            },
+          ]}
+        >
+          Stay connected with everyone!
+        </Text>
+        <Text style={styles.text}>Sign in with account</Text>
+        <View style={styles.getStarted}>
+          <TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}>
+            <LinearGradient colors={['#08d4c4', '#01ab9d']} style={styles.signIn}>
+              <Text style={styles.textSign}>Get Started</Text>
+              <MaterialIcons name="navigate-next" color="#fff" size={20} />
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
+      </Animatable.View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  root: {
-    backgroundColor: '#364A59',
-    alignItems: 'center',
-    alignSelf: 'center',
-    padding: 40,
+const { height } = Dimensions.get('screen');
+const height_logo = height * 0.28;
 
-    height: '100%',
-    width: '100%',
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FF6347',
   },
-  greeting: {
-    marginTop: 100,
-    color: '#FFF',
-    fontSize: 20,
+  header: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  footer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingVertical: 50,
+    paddingHorizontal: 30,
+  },
+  logo: {
+    width: height_logo,
+    height: height_logo,
+  },
+  title: {
+    color: '#05375a',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  text: {
+    color: 'grey',
+    marginTop: 5,
   },
   button: {
-    backgroundColor: '#0078CE',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginTop: '50%',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#0066DD',
-    shadowColor: '#000',
-    shadowRadius: 4,
-    shadowOpacity: 0.5,
-    shadowOffset: { height: 2, width: 0 },
+    alignItems: 'flex-end',
+    marginTop: 30,
   },
-  buttontext: {
-    color: '#FFF',
-  },
-  img: { height: 150, width: 150 },
-  listRow: {
+  signIn: {
+    width: 150,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
     flexDirection: 'row',
-    paddingLeft: 50,
-    marginTop: 20,
   },
-  listBullet: {
-    color: '#FFF',
-    fontSize: 18,
-  },
-  listItem: {
-    flex: 1,
-    paddingLeft: 5,
-    color: '#FFF',
-    fontSize: 18,
+  textSign: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 
