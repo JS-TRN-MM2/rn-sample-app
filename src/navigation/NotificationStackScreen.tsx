@@ -7,7 +7,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 
-import NotificationScreen from '../screens/NotificationScreen';
+import NotificationScreen from '../features/NotificationScreen';
 import { NotificationStackParamList, Routes } from '../../types';
 
 const NotificationStack = createNativeStackNavigator<NotificationStackParamList>();

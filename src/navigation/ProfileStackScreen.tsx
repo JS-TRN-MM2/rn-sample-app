@@ -8,8 +8,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from '@react-navigation/native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
-import ProfileScreen from '../screens/ProfileScreen';
-import EditProfileScreen from '../screens/EditProfileScreen';
+import ProfileScreen from '../features/ProfileScreen';
+import EditProfileScreen from '../features/EditProfileScreen';
 import { ProfileStackParamList, Routes } from '../../types';
 
 const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();

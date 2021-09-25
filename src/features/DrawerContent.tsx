@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -17,12 +18,16 @@ import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 
 import { Ionicons } from '@expo/vector-icons';
 
+import { AuthContext } from '../app/context';
+
 import { ShareStackScreen } from '../navigation/ShareStackScreen';
 import { DonateStackScreen } from '../navigation/DonateStackScreen';
 import { MyClosetStackScreen } from './MyClosetStackScreen';
 
 export function DrawerContent(props) {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  //const { signOut } = React.useContext(AuthContext);
 
   const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
@@ -117,7 +122,9 @@ export function DrawerContent(props) {
         <DrawerItem
           icon={({ color, size }) => <Ionicons name="exit-outline" color={color} size={size} />}
           label="Sign Out"
-          onPress={() => {}}
+          onPress={() => {
+            signOut();
+          }}
         />
       </Drawer.Section>
     </View>

@@ -2,8 +2,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 
 import { MyClosetStackParamList, Routes } from '../../types';
-import MyClosetScreen from '../screens/MyClosetScreen';
-import MyClosetModal from '../screens/my-closet/my-closet-modal';
+import MyClosetScreen from '../features/MyClosetScreen';
+import MyClosetModal from '../features/my-closet/my-closet-modal';
 
 const ModalStack = createNativeStackNavigator<MyClosetStackParamList>();
 

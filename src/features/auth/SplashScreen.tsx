@@ -31,7 +31,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
         <Animatable.Image
           animation="bounceIn"
           duration="1500"
-          source={require('../assets/startbutton.png')}
+          source={require('../../assets/startbutton.png')}
           style={styles.logo}
           resizeMode="stretch"
         />

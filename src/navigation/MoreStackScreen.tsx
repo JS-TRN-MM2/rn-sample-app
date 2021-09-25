@@ -3,7 +3,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { MoreStackParamList, Routes } from '../../types';
-import MoreScreen from '../screens/MoreScreen';
+import MoreScreen from '../features/MoreScreen';
 
 const MoreStack = createNativeStackNavigator<MoreStackParamList>();
 
