@@ -3,7 +3,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { DonateStackParamList, Routes } from '../../types';
-import DonateScreen from '../screens/DonateScreen';
+import DonateScreen from '../features/DonateScreen';
 
 const DonateStack = createNativeStackNavigator<DonateStackParamList>();
 

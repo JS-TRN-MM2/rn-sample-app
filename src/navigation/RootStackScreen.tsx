@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
@@ -5,9 +7,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { RootStackParamList, Routes } from '../../types';
 
-import SplashScreen from '../screens/SplashScreen';
-import SignInScreen from '../screens/SignInScreen';
-import SignUpScreen from '../screens/SignUpScreen';
+import SplashScreen from '../features/auth/SplashScreen';
+import SignInScreen from '../features/auth/SignInScreen';
+import SignUpScreen from '../features/auth/SignUpScreen';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 

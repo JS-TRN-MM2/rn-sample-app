@@ -1,60 +1,73 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
-  Button,
   TouchableOpacity,
   ImageBackground,
   TextInput,
   StyleSheet,
+  Platform,
 } from 'react-native';
 
-//import { useTheme } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
+import { Ionicons, FontAwesome, Feather } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-//import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-//import FontAwesome from 'react-native-vector-icons/FontAwesome';
-//import Feather from 'react-native-vector-icons/Feather';
+import BottomSheet from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
 
-//import BottomSheet from 'reanimated-bottom-sheet';
-//import Animated from 'react-native-reanimated';
-
-//import ImagePicker from 'react-native-image-crop-picker';
+import * as ImagePicker from 'expo-image-picker';
 
 const EditProfileScreen = () => {
-  /*
-  const [image, setImage] = useState('https://api.adorable.io/avatars/80/abott@adorable.png');
+  const [image, setImage] = useState('https://reactjs.org/logo-og.png"');
   const { colors } = useTheme();
 
-  const takePhotoFromCamera = () => {
-    ImagePicker.openCamera({
-      compressImageMaxWidth: 300,
-      compressImageMaxHeight: 300,
-      cropping: true,
-      compressImageQuality: 0.7,
-    }).then((image) => {
-      console.log(image);
-      setImage(image.path);
-      this.bs.current.snapTo(1);
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+    })();
+  }, []);
+
+  const choosePhotoFromLibrary = async () => {
+    const image = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
     });
+
+    console.log(image);
+
+    if (!image.cancelled) {
+      setImage(image.uri);
+    }
   };
 
-  const choosePhotoFromLibrary = () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 300,
-      cropping: true,
-      compressImageQuality: 0.7,
-    }).then((image) => {
-      console.log(image);
-      setImage(image.path);
-      this.bs.current.snapTo(1);
+  const takePhotoFromCamera = async () => {
+    const image = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [16, 9],
+      quality: 0.5,
     });
+
+    console.log(image);
+
+    if (!image.cancelled) {
+      setImage(image.uri);
+    }
   };
 
-  renderInner = () => (
+  const renderInner = () => (
     <View style={styles.panel}>
       <View style={{ alignItems: 'center' }}>
         <Text style={styles.panelTitle}>Upload Photo</Text>
@@ -66,13 +79,13 @@ const EditProfileScreen = () => {
       <TouchableOpacity style={styles.panelButton} onPress={choosePhotoFromLibrary}>
         <Text style={styles.panelButtonTitle}>Choose From Library</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.panelButton} onPress={() => this.bs.current.snapTo(1)}>
+      <TouchableOpacity style={styles.panelButton} onPress={() => bs.current.snapTo(1)}>
         <Text style={styles.panelButtonTitle}>Cancel</Text>
       </TouchableOpacity>
     </View>
   );
 
-  renderHeader = () => (
+  const renderHeader = () => (
     <View style={styles.header}>
       <View style={styles.panelHeader}>
         <View style={styles.panelHandle} />
@@ -80,33 +93,25 @@ const EditProfileScreen = () => {
     </View>
   );
 
-  bs = React.createRef();
-  fall = new Animated.Value(1);
-*/
+  const bs = React.useRef(null);
+  const fall = new Animated.Value(1);
 
   return (
     <View style={styles.container}>
-      <Text>Settings Screen goes here</Text>
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
-    </View>
-  );
-  /*
-  return (
-    <View style={styles.container}>
       <BottomSheet
-        ref={this.bs}
+        ref={bs}
         snapPoints={[330, 0]}
-        renderContent={this.renderInner}
-        renderHeader={this.renderHeader}
+        renderContent={renderInner}
+        renderHeader={renderHeader}
         initialSnap={1}
-        callbackNode={this.fall}
+        callbackNode={fall}
         enabledGestureInteraction={true}
       />
       <Animated.View
-        style={{ margin: 20, opacity: Animated.add(0.1, Animated.multiply(this.fall, 1.0)) }}
+        style={{ margin: 20, opacity: Animated.add(0.1, Animated.multiply(fall, 1.0)) }}
       >
         <View style={{ alignItems: 'center' }}>
-          <TouchableOpacity onPress={() => this.bs.current.snapTo(0)}>
+          <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
             <View
               style={{
                 height: 100,
@@ -130,7 +135,7 @@ const EditProfileScreen = () => {
                     alignItems: 'center',
                   }}
                 >
-                  <Icon
+                  <Ionicons
                     name="camera"
                     size={35}
                     color="#fff"
@@ -242,7 +247,6 @@ const EditProfileScreen = () => {
       </Animated.View>
     </View>
   );
-  */
 };
 
 export default EditProfileScreen;
@@ -291,7 +295,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   panelTitle: {
-    fontSize: 27,
+    fontSize: 24,
     height: 35,
   },
   panelSubtitle: {
@@ -301,14 +305,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   panelButton: {
-    padding: 13,
+    padding: 10,
     borderRadius: 10,
     backgroundColor: '#FF6347',
     alignItems: 'center',
     marginVertical: 7,
   },
   panelButtonTitle: {
-    fontSize: 17,
+    fontSize: 14,
     fontWeight: 'bold',
     color: 'white',
   },

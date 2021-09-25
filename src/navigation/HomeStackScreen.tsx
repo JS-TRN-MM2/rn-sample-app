@@ -10,9 +10,9 @@ import { View, TouchableOpacity } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
 
-import HomeScreen from '../screens/HomeScreen';
-import CardListScreen from '../screens/CardListScreen';
-import CardItemDetails from '../screens/CardItemDetails';
+import HomeScreen from '../features/HomeScreen';
+import CardListScreen from '../features/CardListScreen';
+import CardItemDetails from '../features/CardItemDetails';
 import { HomeStackParamList, Routes } from '../../types';
 
 import { useTheme, Avatar } from 'react-native-paper';

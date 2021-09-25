@@ -7,8 +7,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
-import SettingsScreen from '../screens/SettingsScreen';
-import EditSettingsScreen from '../screens/EditSettingsScreen';
+import SettingsScreen from '../features/SettingsScreen';
+import EditSettingsScreen from '../features/EditSettingsScreen';
 import { SettingsStackParamList, Routes } from '../../types';
 
 const SettingsStack = createNativeStackNavigator<SettingsStackParamList>();

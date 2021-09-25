@@ -3,7 +3,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { ShareStackParamList, Routes } from '../../types';
-import ShareScreen from '../screens/ShareScreen';
+import ShareScreen from '../features/ShareScreen';
 
 const ShareStack = createNativeStackNavigator<ShareStackParamList>();
 

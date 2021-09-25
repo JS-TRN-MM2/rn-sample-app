@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { AddItemStackParamList, Routes } from '../../types';
 
-import AddItemScreen from '../screens/AddItemScreen';
+import AddItemScreen from '../features/AddItemScreen';
 
 const AddItemStack = createNativeStackNavigator<AddItemStackParamList>();
 

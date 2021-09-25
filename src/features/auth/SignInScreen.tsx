@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import {
   View,
@@ -9,19 +13,21 @@ import {
   StatusBar,
   Alert,
 } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../app/rootReducer';
+import { loginUser } from './authSlice';
+import { insertAuthUser, fetchUsers } from './txUsers';
 import * as Animatable from 'react-native-animatable';
-import LinearGradient from 'expo-linear-gradient';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
+import { LinearGradient } from 'expo-linear-gradient';
+import { FontAwesome, Feather } from '@expo/vector-icons';
 
 import { useTheme } from 'react-native-paper';
 
-//import { AuthContext } from '../components/context';
-
-import Users from '../models/users';
-
 const SignInScreen = ({ navigation }) => {
-  /*
+  const dispatch = useDispatch();
+
+  const currentAuthUser = useSelector((state: RootState) => state.auth.currentAuthUser);
+
   const [data, setData] = React.useState({
     username: '',
     password: '',
@@ -33,9 +39,36 @@ const SignInScreen = ({ navigation }) => {
 
   const { colors } = useTheme();
 
-  const { signIn } = React.useContext(AuthContext);
+  const handleSignIn = () => {
+    fetchUsers()
+      .then((result) => {
+        const foundUser = result.filter((item: { username: any; password: any }) => {
+          return data.username == item.username && data.password == item.password;
+        });
+        if (foundUser.length == 0) {
+          Alert.alert('Invalid User!', 'Username or password is incorrect.', [{ text: 'Okay' }]);
+          return;
+        } else {
+          insertAuthUser(
+            foundUser[0].email,
+            foundUser[0].username,
+            foundUser[0].password,
+            '12345$#@!',
+          )
+            .then(() => {
+              dispatch(loginUser(foundUser[0]));
+            })
+            .catch((error) => {
+              console.error('what is the error', error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error('first catch', error);
+      });
+  };
 
-  const textInputChange = (val) => {
+  const textInputChange = (val: string) => {
     if (val.trim().length >= 4) {
       setData({
         ...data,
@@ -53,7 +86,7 @@ const SignInScreen = ({ navigation }) => {
     }
   };
 
-  const handlePasswordChange = (val) => {
+  const handlePasswordChange = (val: string) => {
     if (val.trim().length >= 8) {
       setData({
         ...data,
@@ -76,7 +109,7 @@ const SignInScreen = ({ navigation }) => {
     });
   };
 
-  const handleValidUser = (val) => {
+  const handleValidUser = (val: any) => {
     if (val.trim().length >= 4) {
       setData({
         ...data,
@@ -89,33 +122,6 @@ const SignInScreen = ({ navigation }) => {
       });
     }
   };
-
-  const loginHandle = (userName, password) => {
-    const foundUser = Users.filter((item) => {
-      return userName == item.username && password == item.password;
-    });
-
-    if (data.username.length == 0 || data.password.length == 0) {
-      Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
-        { text: 'Okay' },
-      ]);
-      return;
-    }
-
-    if (foundUser.length == 0) {
-      Alert.alert('Invalid User!', 'Username or password is incorrect.', [{ text: 'Okay' }]);
-      return;
-    }
-    signIn(foundUser);
-  };
-  */
-
-  return (
-    <View style={styles.container}>
-      <Text>Signin Screen goes here</Text>
-    </View>
-  );
-  /*
 
   return (
     <View style={styles.container}>
@@ -154,8 +160,10 @@ const SignInScreen = ({ navigation }) => {
               },
             ]}
             autoCapitalize="none"
-            onChangeText={(val) => textInputChange(val)}
-            onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
+            onChangeText={(val: any) => textInputChange(val)}
+            onEndEditing={(e: { nativeEvent: { text: any } }) =>
+              handleValidUser(e.nativeEvent.text)
+            }
           />
           {data.check_textInputChange ? (
             <Animatable.View animation="bounceIn">
@@ -216,7 +224,7 @@ const SignInScreen = ({ navigation }) => {
           <TouchableOpacity
             style={styles.signIn}
             onPress={() => {
-              loginHandle(data.username, data.password);
+              handleSignIn();
             }}
           >
             <LinearGradient colors={['#FFA07A', '#FF6347']} style={styles.signIn}>
@@ -259,7 +267,6 @@ const SignInScreen = ({ navigation }) => {
       </Animatable.View>
     </View>
   );
-  */
 };
 
 export default SignInScreen;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from 'react';
 import {
@@ -12,13 +13,12 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
-//import * as Animatable from 'react-native-animatable';
-//import LinearGradient from 'expo-linear-gradient';
-//import FontAwesome from 'react-native-vector-icons/FontAwesome';
-//import Feather from 'react-native-vector-icons/Feather';
+import * as Animatable from 'react-native-animatable';
+import { LinearGradient } from 'expo-linear-gradient';
+import { FontAwesome, Feather } from '@expo/vector-icons';
 
 const SignInScreen = ({ navigation }) => {
-  /* const [data, setData] = React.useState({
+  const [data, setData] = React.useState({
     username: '',
     password: '',
     confirm_password: '',
@@ -70,14 +70,7 @@ const SignInScreen = ({ navigation }) => {
       confirm_secureTextEntry: !data.confirm_secureTextEntry,
     });
   };
-*/
 
-  return (
-    <View style={styles.container}>
-      <Text>Signup Screen goes here</Text>
-    </View>
-  );
-  /*
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#FF6347" barStyle="light-content" />
@@ -209,7 +202,6 @@ const SignInScreen = ({ navigation }) => {
       </Animatable.View>
     </View>
   );
-  */
 };
 
 export default SignInScreen;

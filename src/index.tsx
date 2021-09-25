@@ -1,49 +1,62 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/await-thenable */
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Platform, View, Text, ActivityIndicator } from 'react-native';
 import {
   NavigationContainer,
   DefaultTheme as NavigationDefaultTheme,
   DarkTheme as NavigationDarkTheme,
 } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-
+import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
+import { useTheme } from '@react-navigation/native';
 import {
   Provider as PaperProvider,
   DefaultTheme as PaperDefaultTheme,
   DarkTheme as PaperDarkTheme,
 } from 'react-native-paper';
 
-import { DrawerContent } from './screens/DrawerContent';
-//import { Provider } from 'react-redux';
-
-//import { colors } from 'react-native-elements';
+import { DrawerContent } from './features/DrawerContent';
+import { Provider } from 'react-redux';
+import store from './app/store';
+import { initUserSvc, insertUser, fetchUser } from './features/auth/txUsers';
 
 import MainTabScreen from './navigation/MainTabScreen';
-import SettingsScreen from './screens/SettingsScreen';
-
-import { AuthContext } from './app/context';
+import SettingsScreen from './features/SettingsScreen';
 
 import RootStackScreen from './navigation/RootStackScreen';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Console } from 'console';
+import * as SQLite from 'expo-sqlite';
 
 const Drawer = createDrawerNavigator();
 
 const App = (): React.ReactElement => {
-  console.log('inside App');
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
-  const initialLoginState = {
-    isLoading: true,
-    userName: null,
-    userToken: null,
-  };
+  useEffect(() => {
+    const db = SQLite.openDatabase('rn-sample-app.db');
+    void initUserSvc(db);
+    void insertUser('user1@email.com', 'user1', 'password1', 'token1231');
+    void insertUser('user2@email.com', 'user2', 'password2', 'token1232');
+    void insertUser('user3@email.com', 'user3', 'password3', 'token1233');
+    void insertUser('user4@email.com', 'user4', 'password4', 'token1234');
+    fetchUser()
+      .then((len) => {
+        if (len > 0) {
+          console.log('len > 0', len > 0);
+          setIsLoggedIn(true);
+        }
+      })
+      .catch((error) => {
+        console.error('what is the error', error);
+      });
+  }, []);
 
   const CustomDefaultTheme = {
     ...NavigationDefaultTheme,
@@ -69,91 +82,7 @@ const App = (): React.ReactElement => {
 
   const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
 
-  const loginReducer = (prevState, action) => {
-    switch (action.type) {
-      case 'RETRIEVE_TOKEN':
-        return {
-          ...prevState,
-          userToken: action.token,
-          isLoading: false,
-        };
-      case 'LOGIN':
-        return {
-          ...prevState,
-          userName: action.id,
-          userToken: action.token,
-          isLoading: false,
-        };
-      case 'LOGOUT':
-        return {
-          ...prevState,
-          userName: null,
-          userToken: null,
-          isLoading: false,
-        };
-      case 'REGISTER':
-        return {
-          ...prevState,
-          userName: action.id,
-          userToken: action.token,
-          isLoading: false,
-        };
-    }
-  };
-
-  const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
-
-  const authContext = React.useMemo(
-    () => ({
-      signIn: async (foundUser) => {
-        // setUserToken('fgkj');
-        // setIsLoading(false);
-        const userToken = String(foundUser[0].userToken);
-        const userName = foundUser[0].username;
-
-        try {
-          await AsyncStorage.setItem('userToken', userToken);
-        } catch (e) {
-          console.log(e);
-        }
-        // console.log('user token: ', userToken);
-        dispatch({ type: 'LOGIN', id: userName, token: userToken });
-      },
-      signOut: async () => {
-        // setUserToken(null);
-        // setIsLoading(false);
-        try {
-          await AsyncStorage.removeItem('userToken');
-        } catch (e) {
-          console.log(e);
-        }
-        dispatch({ type: 'LOGOUT' });
-      },
-      signUp: () => {
-        // setUserToken('fgkj');
-        // setIsLoading(false);
-      },
-      toggleTheme: () => {
-        setIsDarkTheme((isDarkTheme) => !isDarkTheme);
-      },
-    }),
-    [],
-  );
-
-  useEffect(() => {
-    setTimeout(async () => {
-      // setIsLoading(false);
-      let userToken;
-      userToken = null;
-      try {
-        userToken = await AsyncStorage.getItem('userToken');
-      } catch (e) {
-        console.log(e);
-      }
-      // console.log('user token: ', userToken);
-      dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
-    }, 1000);
-  }, []);
+  /*
 
   if (loginState.isLoading) {
     return (
@@ -162,14 +91,15 @@ const App = (): React.ReactElement => {
       </View>
     );
   }
+*/
 
+  //console.log('currentAuthUser', currentAuthUser);
   return (
     <PaperProvider theme={theme}>
-      <AuthContext.Provider value={authContext}>
+      <Provider store={store}>
         <NavigationContainer theme={theme}>
-          {console.log('what is loginState?', loginState.userToken)}
-          {loginState.userToken == null ? (
-            <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
+          {isLoggedIn ? (
+            <Drawer.Navigator drawerContent={(props: any) => <DrawerContent {...props} />}>
               <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
               <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
             </Drawer.Navigator>
@@ -177,7 +107,7 @@ const App = (): React.ReactElement => {
             <RootStackScreen navigation={undefined} />
           )}
         </NavigationContainer>
-      </AuthContext.Provider>
+      </Provider>
     </PaperProvider>
   );
 };
