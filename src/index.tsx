@@ -24,7 +24,7 @@ import {
 import { DrawerContent } from './features/DrawerContent';
 import { Provider } from 'react-redux';
 import store from './app/store';
-import { initUserSvc, insertUser, fetchUser } from './features/auth/txUsers';
+import { initUserSvc, insertNewUser, fetchUser } from './features/auth/txUsers';
 
 import MainTabScreen from './navigation/MainTabScreen';
 import SettingsScreen from './features/SettingsScreen';
@@ -42,10 +42,10 @@ const App = (): React.ReactElement => {
   useEffect(() => {
     const db = SQLite.openDatabase('rn-sample-app.db');
     void initUserSvc(db);
-    void insertUser('user1@email.com', 'user1', 'password1', 'token1231');
-    void insertUser('user2@email.com', 'user2', 'password2', 'token1232');
-    void insertUser('user3@email.com', 'user3', 'password3', 'token1233');
-    void insertUser('user4@email.com', 'user4', 'password4', 'token1234');
+    void insertNewUser('user1@email.com', 'user1', 'password1', 'token1231');
+    void insertNewUser('user2@email.com', 'user2', 'password2', 'token1232');
+    void insertNewUser('user3@email.com', 'user3', 'password3', 'token1233');
+    void insertNewUser('user4@email.com', 'user4', 'password4', 'token1234');
     fetchUser()
       .then((len) => {
         if (len > 0) {

@@ -1,33 +1,129 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React from 'react';
+import * as React from 'react';
 import {
   View,
   Text,
-  Button,
   TouchableOpacity,
-  Dimensions,
   TextInput,
   Platform,
   StyleSheet,
   ScrollView,
   StatusBar,
+  Alert,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome, Feather } from '@expo/vector-icons';
 
-const SignInScreen = ({ navigation }) => {
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList, Routes } from '../../../types';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../app/rootReducer';
+import { loginUser } from './authSlice';
+import { insertNewUser, insertAuthUser, fetchUsers } from './txUsers';
+
+type SignUpScreenProp = {
+  navigation: NativeStackNavigationProp<RootStackParamList, Routes.SignUpScreen>;
+};
+
+const SignInScreen: React.VFC<SignUpScreenProp> = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const currentAuthUser = useSelector((state: RootState) => state.auth.currentAuthUser);
   const [data, setData] = React.useState({
+    email: '',
     username: '',
     password: '',
     confirm_password: '',
     check_textInputChange: false,
     secureTextEntry: true,
     confirm_secureTextEntry: true,
+    newUserComplete: false,
   });
 
-  const textInputChange = (val) => {
+  const handleSignUp = () => {
+    setData({
+      ...data,
+      newUserComplete: false,
+    });
+    fetchUsers()
+      .then((result) => {
+        const foundUser = result.filter(
+          (item: { email: string; username: string; password: string }) => {
+            return (
+              data.email == item.email &&
+              data.username == item.username &&
+              data.password == item.password
+            );
+          },
+        );
+        if (foundUser.length == 0 || undefined) {
+          console.log('foundUser is not current in the table.  Adding now and logging in. ');
+          insertNewUser(data.email, data.username, data.password, '12345$#@!')
+            .then(() => {
+              insertAuthUser(data.email, data.username, data.password, '12345$#@!');
+            })
+            .then(() => {
+              const newUser = {
+                email: data.email,
+                username: data.username,
+                password: data.password,
+              };
+              dispatch(loginUser(newUser));
+              console.log('currentAuthUser is ', currentAuthUser);
+              return;
+            })
+            .catch((error) => {
+              console.error('what is the error', error);
+            })
+            .finally(() =>
+              setData({
+                ...data,
+                newUserComplete: true,
+              }),
+            );
+        } else {
+          Alert.alert('Existing User', 'This user is already registered.  Do you want to login?', [
+            { text: 'Okay' },
+          ]);
+          console.log('user trying to register is already in the table ', foundUser);
+        }
+      })
+      .catch((error) => {
+        console.error('first catch', error);
+      });
+  };
+
+  const textInputChangeEmail = (val: string) => {
+    setData({
+      ...data,
+      email: '',
+      check_textInputChange: false,
+    });
+    if (val.length !== 0) {
+      setData({
+        ...data,
+        email: val,
+        check_textInputChange: true,
+      });
+    } else {
+      setData({
+        ...data,
+        email: val,
+        check_textInputChange: false,
+      });
+    }
+  };
+  const textInputChangeUsername = (val: string) => {
+    setData({
+      ...data,
+      username: '',
+      check_textInputChange: false,
+    });
     if (val.length !== 0) {
       setData({
         ...data,
@@ -43,14 +139,18 @@ const SignInScreen = ({ navigation }) => {
     }
   };
 
-  const handlePasswordChange = (val) => {
+  const handlePasswordChange = (val: string) => {
     setData({
       ...data,
       password: val,
     });
   };
 
-  const handleConfirmPasswordChange = (val) => {
+  const handleConfirmPasswordChange = (val: string) => {
+    setData({
+      ...data,
+      confirm_password: '',
+    });
     setData({
       ...data,
       confirm_password: val,
@@ -74,19 +174,43 @@ const SignInScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#FF6347" barStyle="light-content" />
-      <View style={styles.header}>
-        <Text style={styles.text_header}>Register Now!</Text>
-      </View>
-      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
+      <Animatable.View animation="fadeInUpBig" style={[styles.header]}>
+        <Text style={[styles.text_header]}>Register Now!</Text>
+      </Animatable.View>
+      <Animatable.View style={styles.footer}>
         <ScrollView>
-          <Text style={styles.text_footer}>Username</Text>
+          <Text style={styles.text_footer}>Email</Text>
+          <View style={styles.action}>
+            <FontAwesome name="envelope-o" color="#05375a" size={20} />
+            <TextInput
+              placeholder="Your Email"
+              style={styles.textInput}
+              autoCapitalize="none"
+              onChangeText={(val: string) => textInputChangeEmail(val)}
+            />
+            {data.check_textInputChange ? (
+              <Animatable.View animation="bounceIn">
+                <Feather name="check-circle" color="green" size={20} />
+              </Animatable.View>
+            ) : null}
+          </View>
+          <Text
+            style={[
+              styles.text_footer,
+              {
+                marginTop: 30,
+              },
+            ]}
+          >
+            Username
+          </Text>
           <View style={styles.action}>
             <FontAwesome name="user-o" color="#05375a" size={20} />
             <TextInput
               placeholder="Your Username"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={(val) => textInputChange(val)}
+              onChangeText={(val: string) => textInputChangeUsername(val)}
             />
             {data.check_textInputChange ? (
               <Animatable.View animation="bounceIn">
@@ -99,7 +223,7 @@ const SignInScreen = ({ navigation }) => {
             style={[
               styles.text_footer,
               {
-                marginTop: 35,
+                marginTop: 30,
               },
             ]}
           >
@@ -112,7 +236,7 @@ const SignInScreen = ({ navigation }) => {
               secureTextEntry={data.secureTextEntry ? true : false}
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={(val) => handlePasswordChange(val)}
+              onChangeText={(val: string) => handlePasswordChange(val)}
             />
             <TouchableOpacity onPress={updateSecureTextEntry}>
               {data.secureTextEntry ? (
@@ -127,7 +251,7 @@ const SignInScreen = ({ navigation }) => {
             style={[
               styles.text_footer,
               {
-                marginTop: 35,
+                marginTop: 30,
               },
             ]}
           >
@@ -140,7 +264,7 @@ const SignInScreen = ({ navigation }) => {
               secureTextEntry={data.confirm_secureTextEntry ? true : false}
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={(val) => handleConfirmPasswordChange(val)}
+              onChangeText={(val: string) => handleConfirmPasswordChange(val)}
             />
             <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
               {data.secureTextEntry ? (
@@ -160,7 +284,12 @@ const SignInScreen = ({ navigation }) => {
             <Text style={[styles.color_textPrivate, { fontWeight: 'bold' }]}> Privacy policy</Text>
           </View>
           <View style={styles.button}>
-            <TouchableOpacity style={styles.signIn} onPress={() => {}}>
+            <TouchableOpacity
+              style={styles.signIn}
+              onPress={() => {
+                handleSignUp();
+              }}
+            >
               <LinearGradient colors={['#FFA07A', '#FF6347']} style={styles.signIn}>
                 <Text
                   style={[

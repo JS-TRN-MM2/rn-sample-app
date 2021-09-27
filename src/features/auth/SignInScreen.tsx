@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import {
   View,
@@ -23,7 +19,14 @@ import { FontAwesome, Feather } from '@expo/vector-icons';
 
 import { useTheme } from 'react-native-paper';
 
-const SignInScreen = ({ navigation }) => {
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList, Routes } from '../../../types';
+
+type SignInScreenProp = {
+  navigation: NativeStackNavigationProp<RootStackParamList, Routes.SignInScreen>;
+};
+
+const SignInScreen: React.FC<SignInScreenProp> = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const currentAuthUser = useSelector((state: RootState) => state.auth.currentAuthUser);
@@ -109,7 +112,7 @@ const SignInScreen = ({ navigation }) => {
     });
   };
 
-  const handleValidUser = (val: any) => {
+  const handleValidUser = (val: string) => {
     if (val.trim().length >= 4) {
       setData({
         ...data,

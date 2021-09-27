@@ -31,10 +31,12 @@ export const initUserSvc = (db) => {
   return promise;
 };
 
-export const insertUser = (email, username, password, userToken) => {
+export const insertNewUser = (email, username, password, userToken) => {
+  console.log('made it to insertNewUser');
   const db = SQLite.openDatabase('rn-sample-app.db');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
+      console.log('made it to tx', email, username, password, userToken);
       tx.executeSql(
         'INSERT INTO MTBL_USERS (email, username, password, userToken) VALUES (?, ?, ?,?);',
         [email, username, password, userToken],
