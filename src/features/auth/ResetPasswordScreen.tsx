@@ -15,7 +15,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/rootReducer';
 import { loginUser } from './authSlice';
-import { insertAuthUser, fetchUsers } from './txUsers';
+import { insertAuthUser, fetchUsers, updateUserPassword } from './txUsers';
 import * as Animatable from 'react-native-animatable';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome, Feather } from '@expo/vector-icons';
@@ -24,10 +24,9 @@ import { useTheme } from 'react-native-paper';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList, Routes } from '../../../types';
-import { Console } from 'console';
 
 type ForgotPasswordScreenProp = {
-  navigation: NativeStackNavigationProp<RootStackParamList, Routes.ForgotPasswordScreen>;
+  navigation: NativeStackNavigationProp<RootStackParamList, Routes.ResetPasswordScreen>;
 };
 
 const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }) => {
@@ -36,9 +35,12 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }
   const { colors } = useTheme();
 
   const [data, setData] = React.useState({
+    userId: 0,
+    username: '',
     email: '',
     newPassword: '',
     confirm_newPassword: '',
+    passwordsMatch: false,
     isUser: false,
     check_textInputChange: false,
     secureTextEntry: true,
@@ -55,7 +57,38 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }
     });
   }, []);
 
+  useEffect(() => {
+    if (data.newPassword === data.confirm_newPassword) {
+      setData({
+        ...data,
+        passwordsMatch: true,
+      });
+    }
+  }, [data.confirm_newPassword]);
+
   const handleResetPassword = () => {
+    updateUserPassword(data.newPassword, data.userId)
+      .then((result) => {
+        console.log('what is result', result);
+        console.log('password has been reset.  Do you want to login?');
+        insertAuthUser(data.email, data.username)
+          .then(() => {
+            const currUser = {
+              email: data.email,
+              username: data.username,
+            };
+            dispatch(loginUser(currUser));
+          })
+          .catch((error) => {
+            console.error('what is the error', error);
+          });
+      })
+      .catch((error) => {
+        console.error('password update', error);
+      });
+  };
+
+  const handleCheckEmail = () => {
     setData({
       ...data,
       email: '',
@@ -75,9 +108,11 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }
           setData({
             ...data,
             isUser: true,
-            email: '',
+            passwordsMatch: false,
+            userId: foundUser[0].id,
+            username: foundUser[0].username,
           });
-          console.log('email is in the table.  allow user to reset ', foundUser);
+          console.log('email is in the table.  allow user to reset ', foundUser[0].id);
         }
       })
       .catch((error) => {
@@ -106,21 +141,17 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }
     }
   };
 
-  const handlePasswordChange = (val1: string) => {
+  const textInputChangePassword = (val: string) => {
     setData({
       ...data,
-      newPassword: val1,
+      newPassword: val,
     });
   };
 
-  const handleConfirmPasswordChange = (val2: string) => {
+  const textInputChangeConfirmPassword = (val: string) => {
     setData({
       ...data,
-      confirm_newPassword: '',
-    });
-    setData({
-      ...data,
-      confirm_newPassword: val2,
+      confirm_newPassword: val,
     });
   };
 
@@ -176,6 +207,7 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }
             >
               <FontAwesome name="envelope-o" color="#05375a" size={20} />
               <TextInput
+                value={data.email}
                 placeholder="Your Email"
                 style={styles.textInput}
                 autoCapitalize="none"
@@ -190,7 +222,7 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }
                 },
               ]}
               onPress={() => {
-                handleResetPassword();
+                handleCheckEmail();
               }}
             >
               <LinearGradient colors={['#FFA07A', '#FF6347']} style={styles.signIn}>
@@ -213,28 +245,21 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }
               style={[
                 styles.text_footer,
                 {
-                  marginTop: 40,
+                  marginTop: 30,
                 },
               ]}
             >
-              We found your account. Enter a new password below.
+              Enter New Password
             </Text>
-
-            <View
-              style={[
-                styles.action,
-                {
-                  marginTop: 40,
-                },
-              ]}
-            >
+            <View style={styles.action}>
               <Feather name="lock" color="#05375a" size={20} />
               <TextInput
-                placeholder="Your Password"
+                value={data.newPassword}
+                placeholder="New Password"
                 secureTextEntry={data.secureTextEntry ? true : false}
                 style={styles.textInput}
                 autoCapitalize="none"
-                onChangeText={(val1: string) => handlePasswordChange(val1)}
+                onChangeText={(val: string) => textInputChangePassword(val)}
               />
               <TouchableOpacity onPress={updateSecureTextEntry}>
                 {data.secureTextEntry ? (
@@ -262,7 +287,7 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }
                 secureTextEntry={data.confirm_secureTextEntry ? true : false}
                 style={styles.textInput}
                 autoCapitalize="none"
-                onChangeText={(val2: string) => handleConfirmPasswordChange(val2)}
+                onChangeText={(val: string) => textInputChangeConfirmPassword(val)}
               />
               <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
                 {data.secureTextEntry ? (
@@ -272,6 +297,15 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }
                 )}
               </TouchableOpacity>
             </View>
+            {!data.passwordsMatch ? (
+              <View>
+                <Text style={styles.inlineError}>Passwords don&apos;t match.</Text>
+              </View>
+            ) : (
+              <View>
+                <Text style={styles.inlineSuccess}>Passwords match!</Text>
+              </View>
+            )}
 
             <TouchableOpacity
               style={[
@@ -372,5 +406,13 @@ const styles = StyleSheet.create({
   textSign: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  inlineError: {
+    fontSize: 16,
+    color: 'red',
+  },
+  inlineSuccess: {
+    fontSize: 16,
+    color: 'green',
   },
 });

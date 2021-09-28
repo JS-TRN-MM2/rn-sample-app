@@ -55,12 +55,7 @@ const SignInScreen: React.FC<SignInScreenProp> = ({ navigation }) => {
           Alert.alert('Invalid User!', 'Username or password is incorrect.', [{ text: 'Okay' }]);
           return;
         } else {
-          insertAuthUser(
-            foundUser[0].email,
-            foundUser[0].username,
-            foundUser[0].password,
-            '12345$#@!',
-          )
+          insertAuthUser(foundUser[0].email, foundUser[0].username)
             .then(() => {
               dispatch(loginUser(foundUser[0]));
             })

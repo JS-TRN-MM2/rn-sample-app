@@ -9,15 +9,16 @@ export const initUserSvc = (db) => {
   //const db = SQLite.openDatabase('rn-sample-app.db');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
+      console.log('made it to initUserSvc');
       tx.executeSql('DROP TABLE IF EXISTS MTBL_USERS', []);
       tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS MTBL_USERS (id INTEGER PRIMARY KEY NOT NULL, email TEXT, username TEXT, password TEXT, userToken TEXT);',
+        'CREATE TABLE IF NOT EXISTS MTBL_USERS (id INTEGER PRIMARY KEY NOT NULL, email TEXT, username TEXT, password TEXT);',
         [],
       );
 
       tx.executeSql('DROP TABLE IF EXISTS MTBL_LOGGED_IN_USER', []);
       tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS MTBL_LOGGED_IN_USER (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, username TEXT, password TEXT, userToken TEXT); ',
+        'CREATE TABLE IF NOT EXISTS MTBL_LOGGED_IN_USER (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, username TEXT); ',
         [],
         () => {
           resolve();
@@ -31,15 +32,14 @@ export const initUserSvc = (db) => {
   return promise;
 };
 
-export const insertNewUser = (email, username, password, userToken) => {
-  console.log('made it to insertNewUser');
+export const insertNewUser = (email, username, password) => {
   const db = SQLite.openDatabase('rn-sample-app.db');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
-      console.log('made it to tx', email, username, password, userToken);
+      console.log('made it to insertNewUser');
       tx.executeSql(
-        'INSERT INTO MTBL_USERS (email, username, password, userToken) VALUES (?, ?, ?,?);',
-        [email, username, password, userToken],
+        'INSERT INTO MTBL_USERS (email, username, password) VALUES (?, ?, ?);',
+        [email, username, password],
         (_, result) => {
           resolve(result);
         },
@@ -52,19 +52,16 @@ export const insertNewUser = (email, username, password, userToken) => {
   return promise;
 };
 
-export const insertAuthUser = (email, username, password, userToken) => {
+export const insertAuthUser = (email, username) => {
   const db = SQLite.openDatabase('rn-sample-app.db');
-  console.log(
-    'made it to insertAuthUser',
-    email + ' ' + username + ' ' + password + '  ' + userToken,
-  );
+
   const promise = new Promise((resolve, reject) => {
     console.log('made it inside promise');
     db.transaction((tx) => {
       console.log('made it into tx');
       tx.executeSql(
-        'INSERT INTO MTBL_LOGGED_IN_USER (email, username, password, userToken) VALUES (?, ?, ?, ?);',
-        [email, username, password, userToken],
+        'INSERT INTO MTBL_LOGGED_IN_USER (email, username) VALUES (?, ?);',
+        [email, username],
         (_, result) => {
           resolve(result);
         },
@@ -110,7 +107,7 @@ export const fetchUser = () => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'SELECT email, username, password, userToken FROM MTBL_LOGGED_IN_USER',
+        'SELECT email, username FROM MTBL_LOGGED_IN_USER',
         [],
         (_, result) => {
           var len = result.rows.length;
@@ -126,7 +123,7 @@ export const fetchUser = () => {
 };
 
 export const deleteLoggedInUser = () => {
-  const db = SQLite.openDatabase('rn-sample.db');
+  const db = SQLite.openDatabase('rn-sample-app.db');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
@@ -134,6 +131,29 @@ export const deleteLoggedInUser = () => {
         [],
         (_, result) => {
           resolve(result);
+        },
+        (_, err) => {
+          reject(err);
+        },
+      );
+    });
+  });
+  return promise;
+};
+
+export const updateUserPassword = (password, id) => {
+  const db = SQLite.openDatabase('rn-sample-app.db');
+  const promise = new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'UPDATE MTBL_USERS set password=? where id=?',
+        [password, id],
+        (_, results) => {
+          console.log('Results', results.rowsAffected);
+          if (results.rowsAffected > 0) {
+            console.log('User updated successfully');
+          }
+          resolve(results);
         },
         (_, err) => {
           reject(err);

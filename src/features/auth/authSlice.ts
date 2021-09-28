@@ -3,7 +3,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 type AuthUserType = {
   email: string;
   username: string;
-  password: string;
 };
 
 interface AuthState {
@@ -19,7 +18,7 @@ const authInitialState: AuthState = {
   isLoading: false,
   error: null,
   users: [],
-  currentAuthUser: { email: '', username: '', password: '' },
+  currentAuthUser: { email: '', username: '' },
 };
 
 function startLoading(state: AuthState) {
@@ -41,15 +40,13 @@ const auth = createSlice({
     },
     getAuthFailure: loadingFailed,
     loginUser: (state, action: PayloadAction<AuthUserType>) => {
-      console.log('insideloginUser payload is ', action.payload);
       state.currentAuthUser.email = action.payload.email;
       state.currentAuthUser.username = action.payload.username;
-      state.currentAuthUser.password = action.payload.password;
+      state.isAuth = true;
     },
     logoutUser: (state) => {
       state.currentAuthUser.email = '';
       state.currentAuthUser.username = '';
-      state.currentAuthUser.password = '';
       //state.currentAuthUser.userToken = '';
       state.isLoading = false;
     },

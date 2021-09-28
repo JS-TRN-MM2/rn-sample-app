@@ -31,6 +31,8 @@ import SettingsScreen from './features/SettingsScreen';
 
 import RootStackScreen from './navigation/RootStackScreen';
 
+import { useSelector } from 'react-redux';
+import { RootState } from './app/rootReducer';
 import * as SQLite from 'expo-sqlite';
 
 const Drawer = createDrawerNavigator();
@@ -39,13 +41,16 @@ const App = (): React.ReactElement => {
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
+  //const currentAuthUser = useSelector((state: RootState) => state.auth.currentAuthUser);
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+
   useEffect(() => {
     const db = SQLite.openDatabase('rn-sample-app.db');
-    //void initUserSvc(db);
-    //void insertNewUser('user1@email.com', 'user1', 'password1', 'token1231');
-    //void insertNewUser('user2@email.com', 'user2', 'password2', 'token1232');
-    //void insertNewUser('user3@email.com', 'user3', 'password3', 'token1233');
-    //void insertNewUser('user4@email.com', 'user4', 'password4', 'token1234');
+    void initUserSvc(db);
+    void insertNewUser('user1@email.com', 'user1', 'password1');
+    void insertNewUser('user2@email.com', 'user2', 'password2');
+    void insertNewUser('user3@email.com', 'user3', 'password3');
+    void insertNewUser('user4@email.com', 'user4', 'password4');
     fetchUser()
       .then((len) => {
         if (len > 0) {
@@ -97,7 +102,7 @@ const App = (): React.ReactElement => {
     <PaperProvider theme={theme}>
       <Provider store={store}>
         <NavigationContainer theme={theme}>
-          {isLoggedIn ? (
+          {isAuth ? (
             <Drawer.Navigator drawerContent={(props: any) => <DrawerContent {...props} />}>
               <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
               <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
