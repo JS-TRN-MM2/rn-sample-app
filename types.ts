@@ -26,7 +26,7 @@ export enum Routes {
   RootNav = 'RootNav',
   MainTabScreen = 'MainTabScreen',
 
-  MyClosetStackScreen = 'MyClosetStackScreen',
+  MyClosetDrawerStackScreen = 'MyClosetDrawerStackScreen',
   ModalStackScreen = 'ModalStackScreen',
 
   HomeStackScreen = 'HomeStackScreen',
@@ -36,13 +36,8 @@ export enum Routes {
   MoreStackScreen = 'MoreStackScreen',
   ProfileStackScreen = 'ProfileStackScreen',
 }
-export type HomeStackParamList = {
-  [Routes.HomeScreen]: undefined;
-  [Routes.CardListScreen]: undefined;
-  [Routes.CardItemDetails]: undefined;
-};
 
-export type MyClosetStackParamList = {
+export type MyClosetDrawerStackParamList = {
   [Routes.MyClosetScreen]: undefined;
   [Routes.MyClosetModal]: { step: string; desc: string };
 };
@@ -79,11 +74,16 @@ export type MoreStackParamList = {
   [Routes.TimeLocInfoScreen]: undefined;
 };
 
-export type RootStackParamList = {
+export type AuthStackParamList = {
   [Routes.SplashScreen]: undefined;
   [Routes.SignInScreen]: undefined;
   [Routes.SignUpScreen]: undefined;
   [Routes.ResetPasswordScreen]: undefined;
+};
+
+export type AppDrawerStackParamList = {
+  [Routes.MainTabScreen]: undefined;
+  [Routes.SettingsScreen]: undefined;
 };
 
 export type MainNavAndroidStackParamList = {

@@ -52,16 +52,16 @@ export const insertNewUser = (email, username, password) => {
   return promise;
 };
 
-export const insertAuthUser = (email, username) => {
+export const insertAuthUser = (userEmail, userUsername) => {
   const db = SQLite.openDatabase('rn-sample-app.db');
 
   const promise = new Promise((resolve, reject) => {
-    console.log('made it inside promise');
+    console.log('made it inside promise', userEmail + ' ' + userUsername);
     db.transaction((tx) => {
       console.log('made it into tx');
       tx.executeSql(
         'INSERT INTO MTBL_LOGGED_IN_USER (email, username) VALUES (?, ?);',
-        [email, username],
+        [userEmail, userUsername],
         (_, result) => {
           resolve(result);
         },
@@ -74,7 +74,7 @@ export const insertAuthUser = (email, username) => {
   return promise;
 };
 
-export const fetchUsers = async () => {
+export const fetchAllUsers = async () => {
   const db = SQLite.openDatabase('rn-sample-app.db');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
@@ -84,6 +84,35 @@ export const fetchUsers = async () => {
         (tx, results) => {
           const { rows } = results;
 
+          let userList = [];
+          for (let i = 0; i < rows.length; i++) {
+            userList.push({
+              ...rows.item(i),
+            });
+          }
+
+          resolve(userList);
+        },
+        (_, err) => {
+          reject(err);
+        },
+      );
+    });
+  });
+  return promise;
+};
+
+export const fetchSelectedUser = async (userName, passWord) => {
+  const db = SQLite.openDatabase('rn-sample-app.db');
+  const promise = new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      console.log('inside tx:, userName, passWord', userName, passWord);
+      tx.executeSql(
+        'SELECT * FROM MTBL_USERS WHERE username = ? and password = ?',
+        [userName, passWord],
+        (tx, results) => {
+          const { rows } = results;
+          console.log('results', results);
           let userList = [];
           for (let i = 0; i < rows.length; i++) {
             userList.push({

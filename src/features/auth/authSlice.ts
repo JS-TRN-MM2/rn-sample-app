@@ -11,6 +11,7 @@ interface AuthState {
   error: string | null;
   users: AuthUserType[];
   currentAuthUser: AuthUserType;
+  currentTheme: boolean;
 }
 
 const authInitialState: AuthState = {
@@ -19,6 +20,7 @@ const authInitialState: AuthState = {
   error: null,
   users: [],
   currentAuthUser: { email: '', username: '' },
+  currentTheme: false,
 };
 
 function startLoading(state: AuthState) {

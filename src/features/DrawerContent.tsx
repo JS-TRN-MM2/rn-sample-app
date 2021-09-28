@@ -18,16 +18,16 @@ import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 
 import { Ionicons } from '@expo/vector-icons';
 
-import { AuthContext } from '../app/context';
+import { useSelector } from 'react-redux';
+import { RootState } from '../app/rootReducer';
 
-import { ShareStackScreen } from '../navigation/ShareStackScreen';
-import { DonateStackScreen } from '../navigation/DonateStackScreen';
-import { MyClosetStackScreen } from './MyClosetStackScreen';
+//import { ShareStackScreen } from '../navigation/ShareStackScreen';
+//import { DonateStackScreen } from '../navigation/DonateStackScreen';
+//import { MyClosetStackScreen } from './MyClosetStackScreen';
 
 export function DrawerContent(props) {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  //const { signOut } = React.useContext(AuthContext);
+  const currentAuthUser = useSelector((state: RootState) => state.auth.currentAuthUser);
 
   const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
@@ -46,8 +46,8 @@ export function DrawerContent(props) {
                 size={50}
               />
               <View style={{ marginLeft: 15, flexDirection: 'column' }}>
-                <Title style={styles.title}>Jane Smith</Title>
-                <Caption style={styles.caption}>@jsmith</Caption>
+                <Title style={styles.title}>{currentAuthUser.username}</Title>
+                <Caption style={styles.caption}>{currentAuthUser.email}</Caption>
               </View>
             </View>
 

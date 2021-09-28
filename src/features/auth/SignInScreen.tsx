@@ -20,7 +20,7 @@ import { useTheme } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/rootReducer';
 import { loginUser } from './authSlice';
-import { insertAuthUser, fetchUsers } from './txUsers';
+import { insertAuthUser, fetchSelectedUser } from './txUsers';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList, Routes } from '../../../types';
@@ -46,18 +46,17 @@ const SignInScreen: React.FC<SignInScreenProp> = ({ navigation }) => {
   const { colors } = useTheme();
 
   const handleSignIn = () => {
-    fetchUsers()
+    fetchSelectedUser(data.username, data.password)
       .then((result) => {
-        const foundUser = result.filter((item: { username: any; password: any }) => {
-          return data.username == item.username && data.password == item.password;
-        });
-        if (foundUser.length == 0) {
+        console.log('what is result.length', result);
+
+        if (result.length == 0) {
           Alert.alert('Invalid User!', 'Username or password is incorrect.', [{ text: 'Okay' }]);
           return;
         } else {
-          insertAuthUser(foundUser[0].email, foundUser[0].username)
+          insertAuthUser(result[0].email, result[0].username)
             .then(() => {
-              dispatch(loginUser(foundUser[0]));
+              dispatch(loginUser(result[0]));
             })
             .catch((error) => {
               console.error('what is the error', error);

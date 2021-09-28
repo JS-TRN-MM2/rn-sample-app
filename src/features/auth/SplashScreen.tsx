@@ -43,8 +43,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
       <View style={styles.header}>
         <Animatable.Image
           animation="bounceIn"
-          duration="1500"
-          source={require('../../assets/startbutton.png')}
+          source={require('../../assets/closet.png')}
           style={styles.logo}
           resizeMode="stretch"
         />
@@ -58,14 +57,14 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
             },
           ]}
         >
-          Stay connected with everyone!
+          Ready to Shop Your Closet?
         </Text>
-        <Text style={styles.text}>Sign in with account</Text>
-        <View style={styles.getStarted}>
+        <Text style={[styles.text, { marginTop: 25 }]}>Sign in with account</Text>
+        <View style={[{ marginTop: 25 }]}>
           <TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}>
             <LinearGradient colors={['#08d4c4', '#01ab9d']} style={styles.signIn}>
               <Text style={styles.textSign}>Get Started</Text>
-              <MaterialIcons name="navigate-next" color="#fff" size={20} />
+              <MaterialIcons name="navigate-next" color={colors.text} size={20} />
             </LinearGradient>
           </TouchableOpacity>
         </View>
