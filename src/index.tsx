@@ -41,15 +41,14 @@ const App = (): React.ReactElement => {
 
   useEffect(() => {
     const db = SQLite.openDatabase('rn-sample-app.db');
-    void initUserSvc(db);
-    void insertNewUser('user1@email.com', 'user1', 'password1', 'token1231');
-    void insertNewUser('user2@email.com', 'user2', 'password2', 'token1232');
-    void insertNewUser('user3@email.com', 'user3', 'password3', 'token1233');
-    void insertNewUser('user4@email.com', 'user4', 'password4', 'token1234');
+    //void initUserSvc(db);
+    //void insertNewUser('user1@email.com', 'user1', 'password1', 'token1231');
+    //void insertNewUser('user2@email.com', 'user2', 'password2', 'token1232');
+    //void insertNewUser('user3@email.com', 'user3', 'password3', 'token1233');
+    //void insertNewUser('user4@email.com', 'user4', 'password4', 'token1234');
     fetchUser()
       .then((len) => {
         if (len > 0) {
-          console.log('len > 0', len > 0);
           setIsLoggedIn(true);
         }
       })

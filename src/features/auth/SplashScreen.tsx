@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import React, { useRef } from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -16,6 +16,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ParamListBase, useTheme } from '@react-navigation/native';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../app/rootReducer';
+import { logoutUser } from './authSlice';
+
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export interface SplashScreenProps {
@@ -23,7 +27,16 @@ export interface SplashScreenProps {
 }
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const currentAuthUser = useSelector((state: RootState) => state.auth.currentAuthUser);
+
+  console.log('SplashScreen: currentAuthUser is ', currentAuthUser);
+
   const { colors } = useTheme();
+  useEffect(() => {
+    //const db = SQLite.openDatabase('rn-sample-app.db');
+    dispatch(logoutUser());
+  }, []);
 
   return (
     <View style={styles.container}>

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import {
   View,
@@ -9,15 +12,15 @@ import {
   StatusBar,
   Alert,
 } from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import { LinearGradient } from 'expo-linear-gradient';
+import { FontAwesome, Feather } from '@expo/vector-icons';
+import { useTheme } from 'react-native-paper';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/rootReducer';
 import { loginUser } from './authSlice';
 import { insertAuthUser, fetchUsers } from './txUsers';
-import * as Animatable from 'react-native-animatable';
-import { LinearGradient } from 'expo-linear-gradient';
-import { FontAwesome, Feather } from '@expo/vector-icons';
-
-import { useTheme } from 'react-native-paper';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList, Routes } from '../../../types';
@@ -220,7 +223,7 @@ const SignInScreen: React.FC<SignInScreenProp> = ({ navigation }) => {
           </Animatable.View>
         )}
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate(Routes.ResetPasswordScreen)}>
           <Text style={{ color: '#FF6347', marginTop: 15 }}>Forgot password?</Text>
         </TouchableOpacity>
         <View style={styles.button}>
@@ -245,7 +248,7 @@ const SignInScreen: React.FC<SignInScreenProp> = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate('SignUpScreen')}
+            onPress={() => navigation.navigate(Routes.SignUpScreen)}
             style={[
               styles.signIn,
               {

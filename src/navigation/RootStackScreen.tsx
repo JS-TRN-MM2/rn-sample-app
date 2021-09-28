@@ -10,10 +10,11 @@ import { RootStackParamList, Routes } from '../../types';
 import SplashScreen from '../features/auth/SplashScreen';
 import SignInScreen from '../features/auth/SignInScreen';
 import SignUpScreen from '../features/auth/SignUpScreen';
+import ResetPasswordScreen from '../features/auth/ResetPasswordScreen';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
-const RootStackScreen = ({ navigation }): React.ReactElement => {
+const RootStackScreen = (): React.ReactElement => {
   return (
     <RootStack.Navigator
       screenOptions={{
@@ -23,6 +24,7 @@ const RootStackScreen = ({ navigation }): React.ReactElement => {
       <RootStack.Screen name={Routes.SplashScreen} component={SplashScreen} />
       <RootStack.Screen name={Routes.SignInScreen} component={SignInScreen} />
       <RootStack.Screen name={Routes.SignUpScreen} component={SignUpScreen} />
+      <RootStack.Screen name={Routes.ResetPasswordScreen} component={ResetPasswordScreen} />
     </RootStack.Navigator>
   );
 };

@@ -1,6 +1,10 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
 
 export enum Routes {
+  SplashScreen = 'SplashScreen',
+  SignInScreen = 'SignInScreen',
+  SignUpScreen = 'SignUpScreen',
+  ResetPasswordScreen = 'ResetPasswordScreen',
   TimeLocScreen = 'TimeLocScreen',
   TimeLocInfoScreen = 'TimeLocInfoScreen',
   MyClosetScreen = 'MyClosetScreen',
@@ -11,9 +15,7 @@ export enum Routes {
   ShareScreen = 'ShareScreen',
   DonateScreen = 'DonateScreen',
   AddItemScreen = 'AddItemScreen',
-  SplashScreen = 'SplashScreen',
-  SignInScreen = 'SignInScreen',
-  SignUpScreen = 'SignUpScreen',
+
   ProfileScreen = 'ProfileScreen',
   EditProfileScreen = 'EditProfileScreen',
   More = 'More',
@@ -81,6 +83,7 @@ export type RootStackParamList = {
   [Routes.SplashScreen]: undefined;
   [Routes.SignInScreen]: undefined;
   [Routes.SignUpScreen]: undefined;
+  [Routes.ResetPasswordScreen]: undefined;
 };
 
 export type MainNavAndroidStackParamList = {
