@@ -48,8 +48,6 @@ const SignInScreen: React.FC<SignInScreenProp> = ({ navigation }) => {
   const handleSignIn = () => {
     fetchSelectedUser(data.username, data.password)
       .then((result) => {
-        console.log('what is result.length', result);
-
         if (result.length == 0) {
           Alert.alert('Invalid User!', 'Username or password is incorrect.', [{ text: 'Okay' }]);
           return;
@@ -64,7 +62,7 @@ const SignInScreen: React.FC<SignInScreenProp> = ({ navigation }) => {
         }
       })
       .catch((error) => {
-        console.error('first catch', error);
+        console.error('Sign in Error', error);
       });
   };
 

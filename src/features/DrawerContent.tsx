@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView, ScrollViewProps } from 'react-native';
 import {
   Avatar,
   Title,
@@ -18,19 +19,38 @@ import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 
 import { Ionicons } from '@expo/vector-icons';
 
-import { useSelector } from 'react-redux';
+import { logoutUser } from '../features/auth/authSlice';
+import { deleteLoggedInUser, fetchLoggedInUsers } from '../features/auth/txUsers';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../app/rootReducer';
 
 //import { ShareStackScreen } from '../navigation/ShareStackScreen';
 //import { DonateStackScreen } from '../navigation/DonateStackScreen';
 //import { MyClosetStackScreen } from './MyClosetStackScreen';
 
-export function DrawerContent(props) {
+export function DrawerContent(
+  props: JSX.IntrinsicAttributes &
+    ScrollViewProps & { children: React.ReactNode } & React.RefAttributes<ScrollView>,
+) {
+  const dispatch = useDispatch();
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const currentAuthUser = useSelector((state: RootState) => state.auth.currentAuthUser);
 
   const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
+  };
+
+  const handleSignOut = () => {
+    void deleteLoggedInUser();
+    fetchLoggedInUsers()
+      .then((result) => {
+        if (result == 0) {
+          dispatch(logoutUser());
+        }
+      })
+      .catch((error) => {
+        console.error('there was a logout error', error);
+      });
   };
 
   return (
@@ -123,7 +143,7 @@ export function DrawerContent(props) {
           icon={({ color, size }) => <Ionicons name="exit-outline" color={color} size={size} />}
           label="Sign Out"
           onPress={() => {
-            signOut();
+            handleSignOut();
           }}
         />
       </Drawer.Section>

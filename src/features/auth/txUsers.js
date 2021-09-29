@@ -9,7 +9,6 @@ export const initUserSvc = (db) => {
   //const db = SQLite.openDatabase('rn-sample-app.db');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
-      console.log('made it to initUserSvc');
       tx.executeSql('DROP TABLE IF EXISTS MTBL_USERS', []);
       tx.executeSql(
         'CREATE TABLE IF NOT EXISTS MTBL_USERS (id INTEGER PRIMARY KEY NOT NULL, email TEXT, username TEXT, password TEXT);',
@@ -36,7 +35,6 @@ export const insertNewUser = (email, username, password) => {
   const db = SQLite.openDatabase('rn-sample-app.db');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
-      console.log('made it to insertNewUser');
       tx.executeSql(
         'INSERT INTO MTBL_USERS (email, username, password) VALUES (?, ?, ?);',
         [email, username, password],
@@ -151,15 +149,35 @@ export const fetchUser = () => {
   return promise;
 };
 
-export const deleteLoggedInUser = () => {
+export const deleteLoggedInUser = async () => {
   const db = SQLite.openDatabase('rn-sample-app.db');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'DELETE FROM MTBL_LOGGED_IN_USERS',
+        'DELETE FROM MTBL_LOGGED_IN_USER',
         [],
         (_, result) => {
           resolve(result);
+        },
+        (_, err) => {
+          reject(err);
+        },
+      );
+    });
+  });
+  return promise;
+};
+
+export const fetchLoggedInUsers = async () => {
+  const db = SQLite.openDatabase('rn-sample-app.db');
+  const promise = new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT * FROM MTBL_LOGGED_IN_USER',
+        [],
+        (_, result) => {
+          const { rows } = result;
+          resolve(rows.length);
         },
         (_, err) => {
           reject(err);

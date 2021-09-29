@@ -49,6 +49,7 @@ const auth = createSlice({
     logoutUser: (state) => {
       state.currentAuthUser.email = '';
       state.currentAuthUser.username = '';
+      state.isAuth = false;
       //state.currentAuthUser.userToken = '';
       state.isLoading = false;
     },
