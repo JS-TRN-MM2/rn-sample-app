@@ -54,9 +54,7 @@ export const insertAuthUser = (userEmail, userUsername) => {
   const db = SQLite.openDatabase('rn-sample-app.db');
 
   const promise = new Promise((resolve, reject) => {
-    console.log('made it inside promise', userEmail + ' ' + userUsername);
     db.transaction((tx) => {
-      console.log('made it into tx');
       tx.executeSql(
         'INSERT INTO MTBL_LOGGED_IN_USER (email, username) VALUES (?, ?);',
         [userEmail, userUsername],
@@ -72,7 +70,7 @@ export const insertAuthUser = (userEmail, userUsername) => {
   return promise;
 };
 
-export const fetchAllUsers = async () => {
+export const fetchExistingUsers = async () => {
   const db = SQLite.openDatabase('rn-sample-app.db');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
@@ -110,14 +108,15 @@ export const fetchSelectedUser = async (userName, passWord) => {
         [userName, passWord],
         (tx, results) => {
           const { rows } = results;
-          console.log('results', results);
+          console.log('results rows', rows);
+          console.log('results length', rows.length);
+
           let userList = [];
           for (let i = 0; i < rows.length; i++) {
             userList.push({
               ...rows.item(i),
             });
           }
-
           resolve(userList);
         },
         (_, err) => {

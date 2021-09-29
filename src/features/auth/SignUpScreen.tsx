@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -20,21 +20,21 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome, Feather } from '@expo/vector-icons';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList, Routes } from '../../../types';
+import { AuthStackParamList, Routes } from '../../../types';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/rootReducer';
 import { loginUser } from './authSlice';
-import { insertNewUser, insertAuthUser, fetchUsers } from './txUsers';
+import { insertNewUser, insertAuthUser, fetchSelectedUser } from './txUsers';
 
 type SignUpScreenProp = {
-  navigation: NativeStackNavigationProp<RootStackParamList, Routes.SignUpScreen>;
+  navigation: NativeStackNavigationProp<AuthStackParamList, Routes.SignUpScreen>;
 };
 
 const SignInScreen: React.VFC<SignUpScreenProp> = ({ navigation }) => {
   const dispatch = useDispatch();
   const currentAuthUser = useSelector((state: RootState) => state.auth.currentAuthUser);
-  const [data, setData] = React.useState({
+  const [data, setData] = useState({
     email: '',
     username: '',
     password: '',
@@ -50,22 +50,12 @@ const SignInScreen: React.VFC<SignUpScreenProp> = ({ navigation }) => {
       ...data,
       newUserComplete: false,
     });
-    fetchUsers()
+    fetchSelectedUser(data.username, data.password)
       .then((result) => {
-        const foundUser = result.filter(
-          (item: { email: string; username: string; password: string }) => {
-            return (
-              data.email == item.email &&
-              data.username == item.username &&
-              data.password == item.password
-            );
-          },
-        );
-        if (foundUser.length == 0 || undefined) {
-          console.log('foundUser is not current in the table.  Adding now and logging in. ');
-          insertNewUser(data.email, data.username, data.password, '12345$#@!')
+        if (result == 0) {
+          insertNewUser(data.email, data.username, data.password)
             .then(() => {
-              insertAuthUser(data.email, data.username, data.password, '12345$#@!');
+              insertAuthUser(data.email, data.username);
             })
             .then(() => {
               const newUser = {
@@ -87,10 +77,12 @@ const SignInScreen: React.VFC<SignUpScreenProp> = ({ navigation }) => {
               }),
             );
         } else {
-          Alert.alert('Existing User', 'This user is already registered.  Do you want to login?', [
-            { text: 'Okay' },
-          ]);
-          console.log('user trying to register is already in the table ', foundUser);
+          Alert.alert(
+            'Existing User',
+            'You are already registered.  Do you need to change your password?',
+            [{ text: 'Okay' }],
+          );
+          navigation.navigate(Routes.ResetPasswordScreen);
         }
       })
       .catch((error) => {

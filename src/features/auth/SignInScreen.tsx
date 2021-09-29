@@ -47,14 +47,20 @@ const SignInScreen: React.FC<SignInScreenProp> = ({ navigation }) => {
 
   const handleSignIn = () => {
     fetchSelectedUser(data.username, data.password)
-      .then((result) => {
-        if (result.length == 0) {
+      .then((results) => {
+        console.log('what is authUser', results);
+        console.log('what is authUser', results.length);
+        if (results.length == 0) {
           Alert.alert('Invalid User!', 'Username or password is incorrect.', [{ text: 'Okay' }]);
           return;
         } else {
-          insertAuthUser(result[0].email, result[0].username)
+          insertAuthUser(results[0].email, results[0].username)
             .then(() => {
-              dispatch(loginUser(result[0]));
+              const auth_user = {
+                email: results[0].email,
+                username: results[0].username,
+              };
+              dispatch(loginUser(auth_user));
             })
             .catch((error) => {
               console.error('what is the error', error);

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { stat } from 'fs';
 
 type AuthUserType = {
   email: string;
