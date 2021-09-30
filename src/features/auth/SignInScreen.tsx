@@ -17,59 +17,62 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome, Feather } from '@expo/vector-icons';
 import { useTheme } from 'react-native-paper';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../app/rootReducer';
+import { useDispatch } from 'react-redux';
 import { loginUser } from './authSlice';
-import { insertAuthUser, fetchSelectedUser } from './txUsers';
+import { insertAuthUser, findUserByUsernameAndPassword } from './txUsers';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList, Routes } from '../../../types';
+import { AuthStackParamList, Routes } from '../../../types';
 
 type SignInScreenProp = {
-  navigation: NativeStackNavigationProp<RootStackParamList, Routes.SignInScreen>;
+  navigation: NativeStackNavigationProp<AuthStackParamList, Routes.SignInScreen>;
 };
 
 const SignInScreen: React.FC<SignInScreenProp> = ({ navigation }) => {
   const dispatch = useDispatch();
-
-  const currentAuthUser = useSelector((state: RootState) => state.auth.currentAuthUser);
 
   const [data, setData] = React.useState({
     username: '',
     password: '',
     check_textInputChange: false,
     secureTextEntry: true,
-    isValidUser: true,
-    isValidPassword: true,
+    isValidUser: false,
+    isValidPassword: false,
   });
 
   const { colors } = useTheme();
 
   const handleSignIn = () => {
-    fetchSelectedUser(data.username, data.password)
-      .then((results) => {
-        console.log('what is authUser', results);
-        console.log('what is authUser', results.length);
-        if (results.length == 0) {
-          Alert.alert('Invalid User!', 'Username or password is incorrect.', [{ text: 'Okay' }]);
-          return;
-        } else {
-          insertAuthUser(results[0].email, results[0].username)
-            .then(() => {
-              const auth_user = {
-                email: results[0].email,
-                username: results[0].username,
-              };
-              dispatch(loginUser(auth_user));
-            })
-            .catch((error) => {
-              console.error('what is the error', error);
-            });
-        }
-      })
-      .catch((error) => {
-        console.error('Sign in Error', error);
-      });
+    if (data.isValidUser == true && data.isValidPassword == true) {
+      findUserByUsernameAndPassword(data.username, data.password)
+        .then((result) => {
+          console.log('what is authUser', result);
+          console.log('what is authUser', result.length);
+          if (result.length == 0) {
+            Alert.alert('Invalid User!', 'Username or password is incorrect.', [{ text: 'Okay' }]);
+            return;
+          } else {
+            insertAuthUser(result[0].email, result[0].username)
+              .then(() => {
+                const auth_user = {
+                  email: result[0].email,
+                  username: result[0].username,
+                };
+                dispatch(loginUser(auth_user));
+              })
+              .catch((error) => {
+                console.error('what is the error', error);
+              });
+          }
+        })
+        .catch((error) => {
+          console.error('Sign in Error', error);
+        });
+    } else {
+      Alert.alert('Missing input', 'You are missing either your email or password.', [
+        { text: 'Okay' },
+      ]);
+    }
   };
 
   const textInputChange = (val: string) => {

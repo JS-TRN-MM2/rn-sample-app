@@ -98,14 +98,78 @@ export const fetchExistingUsers = async () => {
   return promise;
 };
 
-export const fetchSelectedUser = async (userName, passWord) => {
+export const findUserByUsername = async (userName) => {
   const db = SQLite.openDatabase('rn-sample-app.db');
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
-      console.log('inside tx:, userName, passWord', userName, passWord);
+      console.log('findUserByUsernameAndPassword: inside tx:, userName, passWord', userName);
+      tx.executeSql(
+        'SELECT * FROM MTBL_USERS WHERE username = ?',
+        [userName],
+        (tx, results) => {
+          const { rows } = results;
+          console.log('results rows', rows);
+          console.log('results length', rows.length);
+
+          let userList = [];
+          for (let i = 0; i < rows.length; i++) {
+            userList.push({
+              ...rows.item(i),
+            });
+          }
+          resolve(userList);
+        },
+        (_, err) => {
+          reject(err);
+        },
+      );
+    });
+  });
+  return promise;
+};
+
+export const findUserByUsernameAndPassword = async (userName, passWord) => {
+  const db = SQLite.openDatabase('rn-sample-app.db');
+  const promise = new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      console.log(
+        'findUserByUsernameAndPassword: inside tx:, userName, passWord',
+        userName,
+        passWord,
+      );
       tx.executeSql(
         'SELECT * FROM MTBL_USERS WHERE username = ? and password = ?',
         [userName, passWord],
+        (tx, results) => {
+          const { rows } = results;
+          console.log('results rows', rows);
+          console.log('results length', rows.length);
+
+          let userList = [];
+          for (let i = 0; i < rows.length; i++) {
+            userList.push({
+              ...rows.item(i),
+            });
+          }
+          resolve(userList);
+        },
+        (_, err) => {
+          reject(err);
+        },
+      );
+    });
+  });
+  return promise;
+};
+
+export const findUserByEmail = async (email) => {
+  const db = SQLite.openDatabase('rn-sample-app.db');
+  const promise = new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      console.log('inside tx:, email', userName, passWord);
+      tx.executeSql(
+        'SELECT * FROM MTBL_USERS WHERE email = ?',
+        [email],
         (tx, results) => {
           const { rows } = results;
           console.log('results rows', rows);
@@ -190,6 +254,8 @@ export const fetchLoggedInUsers = async () => {
 export const updateUserPassword = (password, id) => {
   const db = SQLite.openDatabase('rn-sample-app.db');
   const promise = new Promise((resolve, reject) => {
+    console.log('updatepassword', password);
+    console.log('updatepassword', id);
     db.transaction((tx) => {
       tx.executeSql(
         'UPDATE MTBL_USERS set password=? where id=?',

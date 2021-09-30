@@ -34,6 +34,7 @@ export function DrawerContent(
 ) {
   const dispatch = useDispatch();
   const [isDarkTheme, setIsDarkTheme] = useState(false);
+
   const currentAuthUser = useSelector((state: RootState) => state.auth.currentAuthUser);
 
   const toggleTheme = () => {

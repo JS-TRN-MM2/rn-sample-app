@@ -28,15 +28,26 @@ export interface SplashScreenProps {
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
   const dispatch = useDispatch();
-  const currentAuthUser = useSelector((state: RootState) => state.auth.currentAuthUser);
 
-  console.log('SplashScreen: currentAuthUser is ', currentAuthUser);
-
+  const existingUser = useSelector((state: RootState) => state.auth.isAuth);
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+  const _id = useSelector((state: RootState) => state.auth._id);
+  const _email = useSelector((state: RootState) => state.auth._email);
+  const _username = useSelector((state: RootState) => state.auth._username);
   const { colors } = useTheme();
   useEffect(() => {
     //const db = SQLite.openDatabase('rn-sample-app.db');
     dispatch(logoutUser());
   }, []);
+
+  console.log(
+    'existingUser, iAuth, _id, _email, _username',
+    existingUser,
+    isAuth,
+    _id,
+    _email,
+    _username,
+  );
 
   return (
     <View style={styles.container}>

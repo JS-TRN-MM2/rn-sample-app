@@ -14,8 +14,8 @@ import {
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/rootReducer';
-import { loginUser } from './authSlice';
-import { insertAuthUser, fetchUsers, updateUserPassword } from './txUsers';
+import { loginUser, setExistingUser } from './authSlice';
+import { insertAuthUser, findUserByEmail, updateUserPassword } from './txUsers';
 import * as Animatable from 'react-native-animatable';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome, Feather } from '@expo/vector-icons';
@@ -23,25 +23,31 @@ import { FontAwesome, Feather } from '@expo/vector-icons';
 import { useTheme } from 'react-native-paper';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList, Routes } from '../../../types';
+import { AuthStackParamList, Routes } from '../../../types';
 
 type ForgotPasswordScreenProp = {
-  navigation: NativeStackNavigationProp<RootStackParamList, Routes.ResetPasswordScreen>;
+  navigation: NativeStackNavigationProp<AuthStackParamList, Routes.ResetPasswordScreen>;
 };
 
 const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }) => {
   const dispatch = useDispatch();
+  const existingUser = useSelector((state: RootState) => state.auth.currentAuthUser);
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+  const currentAuthUser = useSelector((state: RootState) => state.auth.currentAuthUser);
+  const _id = useSelector((state: RootState) => state.auth._id);
+  const _email = useSelector((state: RootState) => state.auth._email);
+  const _username = useSelector((state: RootState) => state.auth._username);
+
+  console.log('ResetPasswordScreen: currentAuthUser', currentAuthUser);
 
   const { colors } = useTheme();
 
   const [data, setData] = React.useState({
     userId: 0,
-    username: '',
     email: '',
     newPassword: '',
     confirm_newPassword: '',
     passwordsMatch: false,
-    isUser: false,
     check_textInputChange: false,
     secureTextEntry: true,
     confirm_secureTextEntry: true,
@@ -50,10 +56,8 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }
   useEffect(() => {
     setData({
       ...data,
-      email: '',
       newPassword: '',
       confirm_newPassword: '',
-      isUser: false,
     });
   }, []);
 
@@ -67,15 +71,17 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }
   }, [data.confirm_newPassword]);
 
   const handleResetPassword = () => {
-    updateUserPassword(data.newPassword, data.userId)
+    console.log('Reset: what is password', data.newPassword);
+    console.log('Reset: user id', data.userId);
+    updateUserPassword(data.newPassword, _id)
       .then((result) => {
         console.log('what is result', result);
         console.log('password has been reset.  Do you want to login?');
-        insertAuthUser(data.email, data.username)
+        insertAuthUser(_email, _username)
           .then(() => {
             const currUser = {
-              email: data.email,
-              username: data.username,
+              email: _email,
+              username: _username,
             };
             dispatch(loginUser(currUser));
           })
@@ -91,28 +97,22 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }
   const handleCheckEmail = () => {
     setData({
       ...data,
-      email: '',
       newPassword: '',
-      isUser: false,
     });
-    fetchUsers()
+    findUserByEmail(_email)
       .then((result) => {
-        const foundUser = result.filter((item: { email: string }) => {
-          return data.email == item.email;
-        });
-        if (foundUser.length == 0 || undefined) {
+        if (result.length == 0) {
           console.log(
             'foundUser is an empty array.  There is no user with that email address in the MTBL_USERS. ',
           );
         } else {
+          dispatch(setExistingUser(true));
           setData({
             ...data,
-            isUser: true,
             passwordsMatch: false,
-            userId: foundUser[0].id,
-            username: foundUser[0].username,
+            userId: result[0].id,
           });
-          console.log('email is in the table.  allow user to reset ', foundUser[0].id);
+          console.log('email is in the table.  allow user to reset ', result[0].id);
         }
       })
       .catch((error) => {
@@ -123,7 +123,6 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }
   const textInputChangeEmail = (val: string) => {
     setData({
       ...data,
-      email: '',
       check_textInputChange: false,
     });
     if (val.length !== 0) {
@@ -184,7 +183,7 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }
           },
         ]}
       >
-        {!data.isUser ? (
+        {!existingUser ? (
           <View>
             <Text
               style={[
@@ -241,6 +240,12 @@ const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProp> = ({ navigation }
           </View>
         ) : (
           <View>
+            {!isAuth && (
+              <Text>
+                Your email already exists in the system. Change your password and you will be logged
+                in
+              </Text>
+            )}
             <Text
               style={[
                 styles.text_footer,

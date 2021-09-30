@@ -24,8 +24,13 @@ import { AuthStackParamList, Routes } from '../../../types';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/rootReducer';
-import { loginUser } from './authSlice';
-import { insertNewUser, insertAuthUser, fetchSelectedUser } from './txUsers';
+import { loginUser, setExistingUser, updateEmail, updateUsername, updateId } from './authSlice';
+import {
+  insertNewUser,
+  insertAuthUser,
+  findUserByUsername,
+  findUserByUsernameAndPassword,
+} from './txUsers';
 
 type SignUpScreenProp = {
   navigation: NativeStackNavigationProp<AuthStackParamList, Routes.SignUpScreen>;
@@ -46,13 +51,27 @@ const SignInScreen: React.VFC<SignUpScreenProp> = ({ navigation }) => {
   });
 
   const handleSignUp = () => {
+    dispatch(setExistingUser(false));
+    dispatch(updateEmail(data.email));
+    dispatch(updateUsername(data.username));
     setData({
       ...data,
       newUserComplete: false,
     });
-    fetchSelectedUser(data.username, data.password)
+
+    //check to see if user exists
+    findUserByUsername(data.username)
       .then((result) => {
-        if (result == 0) {
+        console.log('what is result', result.length);
+        console.log('what is userid', result);
+
+        // if user exists already, ask if they want to reroute to reset password
+        if (result.length !== 0) {
+          dispatch(setExistingUser(true));
+          dispatch(updateId(result[0].id));
+          navigation.navigate(Routes.ResetPasswordScreen);
+        } else {
+          // if user does not exist, insert the new user and log them in
           insertNewUser(data.email, data.username, data.password)
             .then(() => {
               insertAuthUser(data.email, data.username);
@@ -76,13 +95,6 @@ const SignInScreen: React.VFC<SignUpScreenProp> = ({ navigation }) => {
                 newUserComplete: true,
               }),
             );
-        } else {
-          Alert.alert(
-            'Existing User',
-            'You are already registered.  Do you need to change your password?',
-            [{ text: 'Okay' }],
-          );
-          navigation.navigate(Routes.ResetPasswordScreen);
         }
       })
       .catch((error) => {
